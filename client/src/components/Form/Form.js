@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 
 import FileBase from "react-file-base64";
 
@@ -44,17 +45,18 @@ const Form = ({ currentId, setCurrentId }) => {
     // };
 
     return (
-        <Paper className={classes.paper}>
-            <form
-                autoComplete="off"
-                noValidate
-                className={`${classes.root} ${classes.form}`}
-                // onSubmit={handleSubmit}
-            >
-                <Typography variant="h6">
-                    {currentId ? `Editing " "` : "Create Favorite"}
-                </Typography>
-                {/* <TextField
+        <Container component="main" maxWidth="md">
+            <Paper className={classes.paper}>
+                <form
+                    autoComplete="off"
+                    noValidate
+                    className={`${classes.root} ${classes.form}`}
+                    // onSubmit={handleSubmit}
+                >
+                    <Typography variant="h6">
+                        {currentId ? `Editing " "` : "Create Favorite"}
+                    </Typography>
+                    {/* <TextField
                     name="creator"
                     variant="outlined"
                     label="Creator"
@@ -64,54 +66,60 @@ const Form = ({ currentId, setCurrentId }) => {
                         setPostData({ ...postData, creator: e.target.value })
                     }
                 /> */}
-                <TextField
-                    name="title"
-                    variant="outlined"
-                    label="Title"
-                    fullWidth
-                    value={postData.title}
-                    onChange={(e) =>
-                        setPostData({ ...postData, title: e.target.value })
-                    }
-                />
-                <TextField
-                    name="description"
-                    variant="outlined"
-                    label="Description"
-                    fullWidth
-                    multiline
-                    rows={3}
-                    value={postData.description}
-                    onChange={(e) =>
-                        setPostData({
-                            ...postData,
-                            description: e.target.value,
-                        })
-                    }
-                />
-                <TextField
-                    name="imageUrl"
-                    variant="outlined"
-                    label="Image Url"
-                    fullWidth
-                    multiline
-                    rows={1}
-                    value={postData.imageUrl}
-                    onChange={(e) =>
-                        setPostData({ ...postData, imageUrl: e.target.value })
-                    }
-                />
-                <TextField
-                    name="linkUrl"
-                    variant="outlined"
-                    label="Link Url"
-                    fullWidth
-                    value={postData.linkUrl}
-                    onChange={(e) =>
-                        setPostData({ ...postData, linkUrl: e.target.value })
-                    }
-                />
-                {/* <TextField
+                    <TextField
+                        name="title"
+                        variant="outlined"
+                        label="Title"
+                        fullWidth
+                        value={postData.title}
+                        onChange={(e) =>
+                            setPostData({ ...postData, title: e.target.value })
+                        }
+                    />
+                    <TextField
+                        name="description"
+                        variant="outlined"
+                        label="Description"
+                        fullWidth
+                        multiline
+                        rows={3}
+                        value={postData.description}
+                        onChange={(e) =>
+                            setPostData({
+                                ...postData,
+                                description: e.target.value,
+                            })
+                        }
+                    />
+                    <TextField
+                        name="imageUrl"
+                        variant="outlined"
+                        label="Image Url"
+                        fullWidth
+                        multiline
+                        rows={1}
+                        value={postData.imageUrl}
+                        onChange={(e) =>
+                            setPostData({
+                                ...postData,
+                                imageUrl: e.target.value,
+                            })
+                        }
+                    />
+                    <TextField
+                        name="linkUrl"
+                        variant="outlined"
+                        label="Link Url"
+                        fullWidth
+                        value={postData.linkUrl}
+                        onChange={(e) =>
+                            setPostData({
+                                ...postData,
+                                linkUrl: e.target.value,
+                            })
+                        }
+                    />
+                    {/* <TextField
                     name="tags"
                     variant="outlined"
                     label="Tags (coma separated)"
@@ -125,37 +133,41 @@ const Form = ({ currentId, setCurrentId }) => {
                     }
                 /> */}
 
-                <div className={classes.fileInput}>
-                    <FileBase
-                        type="file"
-                        multiple={false}
-                        onDone={({ base64 }) =>
-                            setPostData({ ...postData, selectedFile: base64 })
-                        }
-                    />
-                </div>
+                    <div className={classes.fileInput}>
+                        <FileBase
+                            type="file"
+                            multiple={false}
+                            onDone={({ base64 }) =>
+                                setPostData({
+                                    ...postData,
+                                    selectedFile: base64,
+                                })
+                            }
+                        />
+                    </div>
 
-                <Button
-                    className={classes.buttonSubmit}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    type="submit"
-                    fullWidth
-                >
-                    Submit
-                </Button>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    size="small"
-                    onClick={clear}
-                    fullWidth
-                >
-                    Clear
-                </Button>
-            </form>
-        </Paper>
+                    <Button
+                        className={classes.buttonSubmit}
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        type="submit"
+                        fullWidth
+                    >
+                        Submit
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        size="small"
+                        onClick={clear}
+                        fullWidth
+                    >
+                        Clear
+                    </Button>
+                </form>
+            </Paper>
+        </Container>
     );
 };
 

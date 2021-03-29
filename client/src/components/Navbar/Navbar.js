@@ -54,7 +54,10 @@ const Navbar = () => {
                     alt="icon"
                     height="60"
                 />
+            </div>
+            <div>
                 <Fab
+                    variant="extended"
                     size="small"
                     color="primary"
                     aria-label="add"
@@ -62,7 +65,7 @@ const Navbar = () => {
                     component={Link}
                     to="/create"
                 >
-                    <AddIcon />
+                    <AddIcon /> Add
                 </Fab>
             </div>
             <Toolbar className={classes.toolbar}>
