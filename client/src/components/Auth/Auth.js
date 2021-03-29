@@ -26,7 +26,7 @@ const initialState = {
 const SignUp = () => {
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
-
+    console.log({ form });
     const history = useHistory();
     const classes = useStyles();
 
@@ -52,6 +52,17 @@ const SignUp = () => {
     const handleChange = (e) =>
         setForm({ ...form, [e.target.name]: e.target.value });
 
+    const signInClick = (e) => {
+        const { email, password } = form;
+        console.log("nersetnrset nrsetnsretsrets rniteinsrtn");
+        fetch("http://localhost:5001/user/signin", {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+        }).then((result) => {
+            console.log({ result });
+        });
+    };
+
     return (
         <Container component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
@@ -61,7 +72,7 @@ const SignUp = () => {
                 <Typography component="h1" variant="h5">
                     {isSignup ? "Sign up" : "Sign in"}
                 </Typography>
-                <form className={classes.form} onSubmit="">
+                <form className={classes.form} onSubmit={signInClick}>
                     <Grid container spacing={2}>
                         {isSignup && (
                             <>
@@ -108,6 +119,7 @@ const SignUp = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={signInClick}
                     >
                         {isSignup ? "Sign Up" : "Sign In"}
                     </Button>

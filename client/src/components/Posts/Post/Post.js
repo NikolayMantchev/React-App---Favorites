@@ -20,12 +20,13 @@ const Post = ({ post, setCurrentId }) => {
 
     return (
         <Card className={classes.card}>
-            <CardMedia
-                className={classes.media}
-                image={post.selectedFile || post.imageUrl} // to do .. set value post.imageUrl
-                title={post.title}
-                onClick={() => `${post.linkUrl}`} // to do... on klick go to url
-            />
+            <a href={post.linkUrl}>
+                <CardMedia
+                    className={classes.media}
+                    image={post.selectedFile || post.imageUrl} // to do .. set value post.imageUrl
+                    title={post.title}
+                />
+            </a>
             {/* <div className={classes.overlay}>
                 <Typography variant="h6">{post.creator}</Typography>
                 <Typography variant="body2">
