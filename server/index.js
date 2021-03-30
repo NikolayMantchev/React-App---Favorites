@@ -8,11 +8,11 @@ import postRoutes from "./routes/posts.js";
 import userRouter from "./routes/user.js";
 
 const app = express();
+app.use(cors());
 dotenv.config();
 
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
-app.use(cors());
 
 app.use("/posts", postRoutes);
 app.use("/user", userRouter);

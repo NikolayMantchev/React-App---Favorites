@@ -18,7 +18,7 @@ const App = () => (
                 {/* <Route path="/auth" exact component={Auth} /> */}
                 <Route path="/signin" exact component={SignInForm} />
                 <Route path="/signup" exact component={SignUpForm} />
-                <Route path="/create" exact component={Form} />
+                <Route path="/posts" exact component={Form} />
                 <Route path="/myfavorites" exact component={MyFavorites} />
             </Switch>
         </Container>

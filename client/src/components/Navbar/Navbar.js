@@ -76,7 +76,7 @@ const Navbar = () => {
                     aria-label="add"
                     className={classes.margin}
                     component={Link}
-                    to="/create"
+                    to="/posts"
                 >
                     <AddIcon /> Add
                 </Fab>

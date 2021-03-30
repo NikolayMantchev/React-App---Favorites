@@ -5,27 +5,54 @@ import { Grid, Container } from "@material-ui/core";
 import FileBase from "react-file-base64";
 
 import useStyles from "./styles";
-
+const initState = {
+    creator: "",
+    title: "",
+    description: "",
+    selectedFile: "",
+    imageUrl: "",
+    linkUrl: "",
+};
 const Form = ({ currentId, setCurrentId }) => {
-    const [postData, setPostData] = useState({
-        creator: "",
-        title: "",
-        description: "",
-        tags: "",
-        selectedFile: "",
-        imageUrl: "",
-        linkUrl: "",
-    });
+    const [post, setPost] = useState(initState);
+    console.log({ post });
+    const handleChange = (e) =>
+        setPost({ ...post, [e.target.name]: e.target.value });
 
+    const createPost = (e) => {
+        const {
+            creator,
+            title,
+            description,
+            selectedFile,
+            imageUrl,
+            linkUrl,
+        } = post;
+        console.log("Create TEST...");
+        fetch("http://localhost:5001/posts", {
+            method: "POST",
+            body: JSON.stringify({
+                creator,
+                title,
+                description,
+                selectedFile,
+                imageUrl,
+                linkUrl,
+            }),
+        })
+            .then((result) => {
+                console.log({ result });
+            })
+            .catch((error) => console.log(error));
+    };
     const classes = useStyles();
 
     const clear = () => {
         setCurrentId(0);
-        setPostData({
+        setPost({
             creator: "",
             title: "",
             description: "",
-            tags: "",
             selectedFile: "",
             imageUrl: "",
             linkUrl: "",
@@ -61,9 +88,9 @@ const Form = ({ currentId, setCurrentId }) => {
                     variant="outlined"
                     label="Creator"
                     fullWidth
-                    value={postData.creator}
+                    value={post.creator}
                     onChange={(e) =>
-                        setPostData({ ...postData, creator: e.target.value })
+                        setPost({ ...post, creator: e.target.value })
                     }
                 /> */}
                     <TextField
@@ -71,10 +98,8 @@ const Form = ({ currentId, setCurrentId }) => {
                         variant="outlined"
                         label="Title"
                         fullWidth
-                        value={postData.title}
-                        onChange={(e) =>
-                            setPostData({ ...postData, title: e.target.value })
-                        }
+                        value={post.title}
+                        onChange={handleChange}
                     />
                     <TextField
                         name="description"
@@ -83,13 +108,8 @@ const Form = ({ currentId, setCurrentId }) => {
                         fullWidth
                         multiline
                         rows={3}
-                        value={postData.description}
-                        onChange={(e) =>
-                            setPostData({
-                                ...postData,
-                                description: e.target.value,
-                            })
-                        }
+                        value={post.description}
+                        onChange={handleChange}
                     />
                     <TextField
                         name="imageUrl"
@@ -98,26 +118,16 @@ const Form = ({ currentId, setCurrentId }) => {
                         fullWidth
                         multiline
                         rows={1}
-                        value={postData.imageUrl}
-                        onChange={(e) =>
-                            setPostData({
-                                ...postData,
-                                imageUrl: e.target.value,
-                            })
-                        }
+                        value={post.imageUrl}
+                        onChange={handleChange}
                     />
                     <TextField
                         name="linkUrl"
                         variant="outlined"
                         label="Link Url"
                         fullWidth
-                        value={postData.linkUrl}
-                        onChange={(e) =>
-                            setPostData({
-                                ...postData,
-                                linkUrl: e.target.value,
-                            })
-                        }
+                        value={post.linkUrl}
+                        onChange={handleChange}
                     />
                     {/* <TextField
                     name="tags"
@@ -126,8 +136,8 @@ const Form = ({ currentId, setCurrentId }) => {
                     fullWidth
                     value={postData.tags}
                     onChange={(e) =>
-                        setPostData({
-                            ...postData,
+                        setPost({
+                            ...post,
                             tags: e.target.value.split(","),
                         })
                     }
@@ -138,8 +148,8 @@ const Form = ({ currentId, setCurrentId }) => {
                             type="file"
                             multiple={false}
                             onDone={({ base64 }) =>
-                                setPostData({
-                                    ...postData,
+                                setPost({
+                                    ...post,
                                     selectedFile: base64,
                                 })
                             }
@@ -153,6 +163,7 @@ const Form = ({ currentId, setCurrentId }) => {
                         size="large"
                         type="submit"
                         fullWidth
+                        onClick={createPost}
                     >
                         Submit
                     </Button>

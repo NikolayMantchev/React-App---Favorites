@@ -30,6 +30,7 @@ const SignIn = () => {
 
     const classes = useStyles();
 
+    const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -38,15 +39,21 @@ const SignIn = () => {
 
     const signInClick = (e) => {
         const { email, password } = form;
-        console.log("TEST");
         fetch("http://localhost:5001/user/signin", {
             method: "POST",
             body: JSON.stringify({ email, password }),
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
         })
+            .then((result) => result.json())
             .then((result) => {
-                console.log({ result });
+                localStorage.setItem("token", result.token);
             })
-            .catch((error) => console.log(error));
+            .catch((err) => setError(err));
+
+        e.preventDefault();
     };
 
     return (
@@ -58,7 +65,7 @@ const SignIn = () => {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} onSubmit={signInClick}>
+                <form className={classes.form}>
                     <Grid container spacing={2}>
                         <Input
                             name="email"
