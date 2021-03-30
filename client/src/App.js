@@ -4,8 +4,10 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
-import Auth from "./components/Auth/Auth";
 import Form from "./components/Form/Form";
+import SignInForm from "./components/Auth/SignInForm";
+import SignUpForm from "./components/Auth/SignUpForm";
+import MyFavorites from "./components/MyFavorites/MyFavorites";
 
 const App = () => (
     <BrowserRouter>
@@ -13,8 +15,11 @@ const App = () => (
             <Navbar />
             <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path="/auth" exact component={Auth} />
+                {/* <Route path="/auth" exact component={Auth} /> */}
+                <Route path="/signin" exact component={SignInForm} />
+                <Route path="/signup" exact component={SignUpForm} />
                 <Route path="/create" exact component={Form} />
+                <Route path="/myfavorites" exact component={MyFavorites} />
             </Switch>
         </Container>
     </BrowserRouter>

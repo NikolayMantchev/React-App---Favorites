@@ -63,6 +63,19 @@ const Navbar = () => {
                     aria-label="add"
                     className={classes.margin}
                     component={Link}
+                    to="/myfavorites"
+                >
+                    My Favorites
+                </Fab>
+            </div>
+            <div>
+                <Fab
+                    variant="extended"
+                    size="small"
+                    color="primary"
+                    aria-label="add"
+                    className={classes.margin}
+                    component={Link}
                     to="/create"
                 >
                     <AddIcon /> Add
@@ -91,14 +104,24 @@ const Navbar = () => {
                         </Button>
                     </div>
                 ) : (
-                    <Button
-                        component={Link}
-                        to="/auth"
-                        variant="contained"
-                        color="primary"
-                    >
-                        Sign In
-                    </Button>
+                    <div>
+                        <Button
+                            component={Link}
+                            to="/signin"
+                            variant="contained"
+                            color="primary"
+                        >
+                            Sign In
+                        </Button>
+                        <Button
+                            component={Link}
+                            to="/signup"
+                            variant="contained"
+                            color="primary"
+                        >
+                            Sign Up
+                        </Button>
+                    </div>
                 )}
             </Toolbar>
         </AppBar>
