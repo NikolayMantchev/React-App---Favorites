@@ -10,10 +10,8 @@ import favImage from "../../images/favImage.png";
 import useStyles from "./styles";
 
 const Navbar = () => {
-    const [user, setUser] = useState(
-        JSON.parse(localStorage.getItem("profile"))
-    );
-
+    const [user, setUser] = useState(localStorage.getItem("token"));
+    console.log({ user });
     const location = useLocation();
     const history = useHistory();
     const classes = useStyles();
@@ -24,17 +22,17 @@ const Navbar = () => {
         setUser(null);
     };
 
-    // useEffect(() => {
-    //     const token = user?.token;
+    useEffect(() => {
+        const token = user?.token;
 
-    //     if (token) {
-    //         const decodedToken = decode(token);
+        if (token) {
+            const decodedToken = decode(token);
 
-    //         if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-    //     }
+            if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+        }
 
-    //     setUser(JSON.parse(localStorage.getItem("profile")));
-    // }, [location]);
+        setUser(localStorage.getItem("token"));
+    }, [location]);
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">

@@ -25,7 +25,7 @@ const initialState = {
 
 const SignUp = () => {
     const [form, setForm] = useState(initialState);
-    console.log({ form });
+
     const history = useHistory();
     const classes = useStyles();
 
@@ -34,10 +34,11 @@ const SignUp = () => {
 
     const handleChange = (e) =>
         setForm({ ...form, [e.target.name]: e.target.value });
-
+    const [error, setError] = useState("");
     const signUpClick = (e) => {
         const { firstName, lastName, email, password, confirmPassword } = form;
         console.log("signUp Clicked...");
+
         fetch("http://localhost:5001/user/signup", {
             method: "POST",
             body: JSON.stringify({
@@ -46,9 +47,15 @@ const SignUp = () => {
                 email,
                 password,
             }),
-        }).then((result) => {
-            console.log({ result });
-        });
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+        })
+            .then((result) => {
+                console.log({ result });
+            })
+            .catch((err) => setError(err));
     };
 
     return (
@@ -60,7 +67,7 @@ const SignUp = () => {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} onSubmit={signUpClick}>
+                <form className={classes.form}>
                     <Grid container spacing={2}>
                         <>
                             <Input

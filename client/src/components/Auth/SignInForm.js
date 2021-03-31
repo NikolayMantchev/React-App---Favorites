@@ -26,7 +26,6 @@ const initialState = {
 const SignIn = () => {
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
-    console.log({ form });
 
     const classes = useStyles();
 
@@ -39,6 +38,7 @@ const SignIn = () => {
 
     const signInClick = (e) => {
         const { email, password } = form;
+
         fetch("http://localhost:5001/user/signin", {
             method: "POST",
             body: JSON.stringify({ email, password }),
@@ -50,6 +50,7 @@ const SignIn = () => {
             .then((result) => result.json())
             .then((result) => {
                 localStorage.setItem("token", result.token);
+                localStorage.setItem("_id", result.result._id);
             })
             .catch((err) => setError(err));
 

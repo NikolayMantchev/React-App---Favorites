@@ -6,7 +6,7 @@ import FileBase from "react-file-base64";
 
 import useStyles from "./styles";
 const initState = {
-    creator: "",
+    creator: localStorage.getItem("_id"),
     title: "",
     description: "",
     selectedFile: "",
@@ -15,7 +15,7 @@ const initState = {
 };
 const Form = ({ currentId, setCurrentId }) => {
     const [post, setPost] = useState(initState);
-    console.log({ post });
+
     const handleChange = (e) =>
         setPost({ ...post, [e.target.name]: e.target.value });
 
@@ -39,6 +39,10 @@ const Form = ({ currentId, setCurrentId }) => {
                 imageUrl,
                 linkUrl,
             }),
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
         })
             .then((result) => {
                 console.log({ result });
