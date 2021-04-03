@@ -11,27 +11,30 @@ import useStyles from "./styles";
 
 const Navbar = () => {
     const [user, setUser] = useState(localStorage.getItem("token"));
-    console.log({ user });
+
     const location = useLocation();
     const history = useHistory();
     const classes = useStyles();
 
     const logout = () => {
-        history.push("/auth");
+        localStorage.setItem("token", null);
+        history.push("/");
 
         setUser(null);
     };
 
     useEffect(() => {
-        const token = user?.token;
+        const token = user;
 
         if (token) {
             const decodedToken = decode(token);
-
+            console.log(decodedToken);
             if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+            setUser(decodedToken);
         }
 
-        setUser(localStorage.getItem("token"));
+        // setUser(localStorage.getItem("token"));
+        console.log({ user });
     }, [location]);
 
     return (
@@ -41,7 +44,7 @@ const Navbar = () => {
                     component={Link}
                     to="/"
                     className={classes.heading}
-                    variant="h3"
+                    variant="h4"
                     align="center"
                 >
                     Favorites
@@ -53,6 +56,7 @@ const Navbar = () => {
                     height="60"
                 />
             </div>
+
             <div>
                 <Fab
                     variant="extended"
@@ -79,18 +83,16 @@ const Navbar = () => {
                     <AddIcon /> Add
                 </Fab>
             </div>
+
             <Toolbar className={classes.toolbar}>
-                {user?.result ? (
+                {user?.email ? (
                     <div className={classes.profile}>
-                        <Avatar
-                            className={classes.purple}
-                            alt={user?.result.name}
-                            src={user?.result.imageUrl}
+                        <Typography
+                            className={classes.userName}
+                            variant="h6"
+                            color="primary"
                         >
-                            {user?.result.name.charAt(0)}
-                        </Avatar>
-                        <Typography className={classes.userName} variant="h6">
-                            {user?.result.name}
+                            {user?.email}
                         </Typography>
                         <Button
                             variant="contained"

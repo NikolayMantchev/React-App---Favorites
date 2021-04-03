@@ -53,9 +53,11 @@ const SignUp = () => {
             },
         })
             .then((result) => {
+                localStorage.setItem("token", result.token);
                 console.log({ result });
             })
             .catch((err) => setError(err));
+        history.push("/");
     };
 
     return (

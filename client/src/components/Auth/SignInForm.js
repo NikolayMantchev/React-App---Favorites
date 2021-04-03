@@ -16,16 +16,13 @@ import useStyles from "./styles";
 import Input from "./Input";
 
 const initialState = {
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    confirmPassword: "",
 };
 
 const SignIn = () => {
     const [form, setForm] = useState(initialState);
-    const [isSignup, setIsSignup] = useState(false);
+    const history = useHistory();
 
     const classes = useStyles();
 
@@ -50,13 +47,15 @@ const SignIn = () => {
             .then((result) => result.json())
             .then((result) => {
                 localStorage.setItem("token", result.token);
-                localStorage.setItem("_id", result.result._id);
+                // localStorage.setItem("result", result.result);
+                // localStorage.setItem("name", result.result.name);
             })
             .catch((err) => setError(err));
 
         e.preventDefault();
-    };
 
+        history.push("/");
+    };
     return (
         <Container component="main" maxWidth="xs">
             <Paper className={classes.paper} elevation={3}>
