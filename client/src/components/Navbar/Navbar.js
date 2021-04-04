@@ -10,31 +10,30 @@ import favImage from "../../images/favImage.png";
 import useStyles from "./styles";
 
 const Navbar = () => {
-    const [user, setUser] = useState(localStorage.getItem("token"));
+    const [user, setUser] = useState({});
 
     const location = useLocation();
     const history = useHistory();
     const classes = useStyles();
 
     const logout = () => {
-        localStorage.setItem("token", null);
+        localStorage.clear();
         history.push("/");
 
         setUser(null);
     };
 
     useEffect(() => {
-        const token = user;
+        const token = localStorage.getItem("token");
 
         if (token) {
             const decodedToken = decode(token);
-            console.log(decodedToken);
+
             if (decodedToken.exp * 1000 < new Date().getTime()) logout();
             setUser(decodedToken);
         }
 
         // setUser(localStorage.getItem("token"));
-        console.log({ user });
     }, [location]);
 
     return (
@@ -104,24 +103,29 @@ const Navbar = () => {
                         </Button>
                     </div>
                 ) : (
-                    <div>
-                        <Button
-                            component={Link}
-                            to="/signin"
-                            variant="contained"
-                            color="primary"
-                        >
-                            Sign In
-                        </Button>
-                        <Button
-                            component={Link}
-                            to="/signup"
-                            variant="contained"
-                            color="primary"
-                        >
-                            Sign Up
-                        </Button>
-                    </div>
+                    <>
+                        <div>
+                            <Button
+                                component={Link}
+                                to="/signin"
+                                variant="contained"
+                                color="primary"
+                                className={classes.signin}
+                            >
+                                Sign In
+                            </Button>
+
+                            <Button
+                                component={Link}
+                                to="/signup"
+                                variant="contained"
+                                color="primary"
+                                className={classes.signin}
+                            >
+                                Sign Up
+                            </Button>
+                        </div>
+                    </>
                 )}
             </Toolbar>
         </AppBar>

@@ -36,4 +36,7 @@ export default makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
     },
+    signin: {
+        marginLeft: "15px",
+    },
 }));

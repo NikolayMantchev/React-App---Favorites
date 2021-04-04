@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import decode from "jwt-decode";
 import {
     Avatar,
     Button,
@@ -47,14 +47,16 @@ const SignIn = () => {
             .then((result) => result.json())
             .then((result) => {
                 localStorage.setItem("token", result.token);
-                // localStorage.setItem("result", result.result);
-                // localStorage.setItem("name", result.result.name);
+                const decodedToken = decode(result.token);
+                localStorage.setItem(
+                    "decodedToken",
+                    JSON.stringify(decodedToken)
+                );
+                history.push("/");
             })
             .catch((err) => setError(err));
 
         e.preventDefault();
-
-        history.push("/");
     };
     return (
         <Container component="main" maxWidth="xs">

@@ -11,26 +11,26 @@ const Home = () => {
     const location = useLocation();
     const history = useHistory();
 
-    const logout = () => {
-        localStorage.setItem("token", null);
-        history.push("/");
+    // const logout = () => {
+    //     localStorage.clear();
+    //     history.push("/");
 
-        setUser(null);
-    };
+    //     setUser(null);
+    // };
 
-    useEffect(() => {
-        const token = user;
+    // useEffect(() => {
+    //     const token = user;
 
-        if (token) {
-            const decodedToken = decode(token);
-            console.log(decodedToken);
-            if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-            setUser(decodedToken);
-        }
+    //     if (token) {
+    //         const decodedToken = decode(token);
+    //         console.log(decodedToken);
+    //         if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    //         setUser(decodedToken);
+    //     }
 
-        // setUser(localStorage.getItem("token"));
-        console.log({ user });
-    }, [location]);
+    //     // setUser(localStorage.getItem("token"));
+    //     console.log({ user });
+    // }, [location]);
 
     return (
         <Grow in>

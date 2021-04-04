@@ -8,6 +8,7 @@ import Form from "./components/Form/Form";
 import SignInForm from "./components/Auth/SignInForm";
 import SignUpForm from "./components/Auth/SignUpForm";
 import MyFavorites from "./components/MyFavorites/MyFavorites";
+import RequireAuth from "./common/requireAuth";
 
 const App = () => (
     <BrowserRouter>
