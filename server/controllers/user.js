@@ -6,6 +6,7 @@ import UserModal from "../models/user.js";
 const secret = "test";
 
 export const signin = async (req, res) => {
+    console.log(req.body);
     const { email, password } = req.body;
     try {
         const oldUser = await UserModal.findOne({ email });

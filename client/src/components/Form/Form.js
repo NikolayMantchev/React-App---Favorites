@@ -1,79 +1,90 @@
-import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography, Paper } from "@material-ui/core";
-import { Grid, Container } from "@material-ui/core";
-
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import {
+    TextField,
+    Button,
+    Typography,
+    Paper,
+    lighten,
+} from "@material-ui/core";
+import { Container } from "@material-ui/core";
+import useToken from "../../common/useToken";
 import FileBase from "react-file-base64";
 
 import useStyles from "./styles";
+import useFetch from "../../api/useFetch";
+
+const { token, decodedToken } = useToken();
+
 const initState = {
-    creator: localStorage.getItem("_id"),
+    creator: decodedToken?.id || "",
     title: "",
     description: "",
     selectedFile: "",
     imageUrl: "",
     linkUrl: "",
 };
-const Form = ({ currentId, setCurrentId }) => {
+const Form = ({ history }) => {
     const [post, setPost] = useState(initState);
 
-    const handleChange = (e) =>
-        setPost({ ...post, [e.target.name]: e.target.value });
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (!token) history.push("/signin");
+    }, [history, token]);
+
+    const { data, isPending, error } = useFetch("http://localhost:5001/posts");
+
+    const posts = data || [];
+
+    useEffect(() => {
+        if (posts.length > 0) {
+            const curentPost = posts.find((p) => p._id === id);
+
+            if (curentPost) {
+                setPost(curentPost);
+            }
+        }
+    }, [posts]);
+
+    const handleChange = (e) => {};
+    // setPost({ ...post, [e.target.name]: e.target.value });
 
     const createPost = (e) => {
-        const {
-            creator,
-            title,
-            description,
-            selectedFile,
-            imageUrl,
-            linkUrl,
-        } = post;
-        console.log("Create TEST...");
         fetch("http://localhost:5001/posts", {
             method: "POST",
-            body: JSON.stringify({
-                creator,
-                title,
-                description,
-                selectedFile,
-                imageUrl,
-                linkUrl,
-            }),
+            body: JSON.stringify(post),
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             },
         })
+            .then((result) => result.json())
             .then((result) => {
-                console.log({ result });
+                history.push("/");
             })
-            .catch((error) => console.log(error));
+            .catch((error) => console.log({ error }));
     };
     const classes = useStyles();
 
     const clear = () => {
-        setCurrentId(0);
-        setPost({
-            creator: "",
-            title: "",
-            description: "",
-            selectedFile: "",
-            imageUrl: "",
-            linkUrl: "",
-        });
+        setPost(initState);
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const { title } = e.target;
+        console.log(title.value);
 
-    //     if (currentId === 0) {
-    //         // dispatch(createPost(postData));
-    //         clear();
-    //     } else {
-    //         // dispatch(updatePost(currentId, postData));
-    //         clear();
-    //     }
-    // };
+        //     if (currentId === 0) {
+        //         // dispatch(createPost(postData));
+        //         clear();
+        //     } else {
+        //         // dispatch(updatePost(currentId, postData));
+        //         clear();
+        //     }
+    };
 
     return (
         <Container component="main" maxWidth="md">
@@ -82,10 +93,10 @@ const Form = ({ currentId, setCurrentId }) => {
                     autoComplete="off"
                     noValidate
                     className={`${classes.root} ${classes.form}`}
-                    // onSubmit={handleSubmit}
+                    onSubmit={handleSubmit}
                 >
                     <Typography variant="h6">
-                        {currentId ? `Editing " "` : "Create Favorite"}
+                        {id ? "Edit" : "Create Favorite"}
                     </Typography>
                     {/* <TextField
                     name="creator"
@@ -165,9 +176,9 @@ const Form = ({ currentId, setCurrentId }) => {
                         variant="contained"
                         color="primary"
                         size="large"
-                        type="submit"
                         fullWidth
-                        onClick={createPost}
+                        // onClick={createPost}
+                        type="submit"
                     >
                         Submit
                     </Button>

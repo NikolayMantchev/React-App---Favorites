@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, CircularProgress } from "@material-ui/core";
 import useFetch from "../../api/useFetch";
 
@@ -23,7 +23,7 @@ const Posts = () => {
                 spacing={6}
             >
                 {posts.map((post) => (
-                    <Grid key={post._id} item xs={12} sm={12} md={6} lg={6}>
+                    <Grid key={post._id} item xs={12} sm={6} md={3} lg={3}>
                         <Post post={post} />
                     </Grid>
                 ))}

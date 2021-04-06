@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
+import { AppBar, Typography, Toolbar, Button } from "@material-ui/core";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
@@ -28,12 +28,9 @@ const Navbar = () => {
 
         if (token) {
             const decodedToken = decode(token);
-
             if (decodedToken.exp * 1000 < new Date().getTime()) logout();
             setUser(decodedToken);
         }
-
-        // setUser(localStorage.getItem("token"));
     }, [location]);
 
     return (
@@ -77,7 +74,7 @@ const Navbar = () => {
                     aria-label="add"
                     className={classes.margin}
                     component={Link}
-                    to="/posts"
+                    to="/post"
                 >
                     <AddIcon /> Add
                 </Fab>

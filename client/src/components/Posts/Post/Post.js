@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
     Card,
     CardActions,
@@ -23,7 +24,7 @@ const Post = ({ post, setCurrentId }) => {
             <a href={post.linkUrl}>
                 <CardMedia
                     className={classes.media}
-                    image={post.selectedFile || post.imageUrl} // to do .. set value post.imageUrl
+                    image={post.selectedFile || post.imageUrl}
                     title={post.title}
                 />
             </a>
@@ -82,7 +83,9 @@ const Post = ({ post, setCurrentId }) => {
                     className={classes.margin}
                     // onClick={() => setCurrentId(post._id)}
                 >
-                    <EditIcon />
+                    <Link to={`/post/${post._id}`}>
+                        <EditIcon />
+                    </Link>
                 </Fab>
                 <Fab
                     size="small"

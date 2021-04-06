@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import decode from "jwt-decode";
 import {
     Avatar,
     Button,
@@ -38,6 +38,7 @@ const SignUp = () => {
     const signUpClick = (e) => {
         const { firstName, lastName, email, password, confirmPassword } = form;
         console.log("signUp Clicked...");
+        if (password !== confirmPassword) return (error) => setError(error);
 
         fetch("http://localhost:5001/user/signup", {
             method: "POST",
@@ -52,8 +53,14 @@ const SignUp = () => {
                 "Content-Type": "application/json",
             },
         })
+            .then((result) => result.json())
             .then((result) => {
                 localStorage.setItem("token", result.token);
+                const decodedToken = decode(result.token);
+                localStorage.setItem(
+                    "decodedToken",
+                    JSON.stringify(decodedToken)
+                );
                 console.log({ result });
             })
             .catch((err) => setError(err));
