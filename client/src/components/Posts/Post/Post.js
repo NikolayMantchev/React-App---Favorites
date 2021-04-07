@@ -77,6 +77,8 @@ const Post = ({ post, setCurrentId }) => {
                 </Fab>
 
                 <Fab
+                    // component={Link}
+                    // to={`/post/${post._id}`}
                     size="small"
                     color="secondary"
                     aria-label="edit"

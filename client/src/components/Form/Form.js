@@ -29,26 +29,27 @@ const Form = ({ history }) => {
 
     const { id } = useParams();
 
-    useEffect(() => {
-        if (!token) history.push("/signin");
-    }, [history, token]);
+    // useEffect(() => {
+    //     if (!token) history.push("/signin");
+    // }, [history, token]);
 
-    const { data, isPending, error } = useFetch("http://localhost:5001/posts");
+    // const { data, isPending, error } = useFetch("http://localhost:5001/posts");
 
-    const posts = data || [];
+    // const posts = data || [];
 
-    useEffect(() => {
-        if (posts.length > 0) {
-            const curentPost = posts.find((p) => p._id === id);
+    // useEffect(() => {
+    //     if (posts.length > 0) {
+    //         const curentPost = posts.find((p) => p._id === id);
 
-            if (curentPost) {
-                setPost(curentPost);
-            }
-        }
-    }, [posts]);
+    //         if (curentPost) {
+    //             setPost(curentPost);
+    //         }
+    //     }
+    // }, [posts]);
 
-    const handleChange = (e) => {};
-    // setPost({ ...post, [e.target.name]: e.target.value });
+    const handleChange = (e) => {
+        setPost({ ...post, [e.target.name]: e.target.value });
+    };
 
     const createPost = (e) => {
         fetch("http://localhost:5001/posts", {
@@ -72,19 +73,19 @@ const Form = ({ history }) => {
         setPost(initState);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const { title } = e.target;
-        console.log(title.value);
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     const { title } = e.target;
+    //     console.log(title.value);
 
-        //     if (currentId === 0) {
-        //         // dispatch(createPost(postData));
-        //         clear();
-        //     } else {
-        //         // dispatch(updatePost(currentId, postData));
-        //         clear();
-        //     }
-    };
+    //     //     if (currentId === 0) {
+    //     //         // dispatch(createPost(postData));
+    //     //         clear();
+    //     //     } else {
+    //     //         // dispatch(updatePost(currentId, postData));
+    //     //         clear();
+    //     //     }
+    // };
 
     return (
         <Container component="main" maxWidth="md">
@@ -93,7 +94,7 @@ const Form = ({ history }) => {
                     autoComplete="off"
                     noValidate
                     className={`${classes.root} ${classes.form}`}
-                    onSubmit={handleSubmit}
+                    // onSubmit={handleSubmit}
                 >
                     <Typography variant="h6">
                         {id ? "Edit" : "Create Favorite"}
@@ -177,8 +178,8 @@ const Form = ({ history }) => {
                         color="primary"
                         size="large"
                         fullWidth
-                        // onClick={createPost}
-                        type="submit"
+                        onClick={createPost}
+                        // type="submit"
                     >
                         Submit
                     </Button>
