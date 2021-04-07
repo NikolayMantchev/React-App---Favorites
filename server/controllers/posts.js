@@ -29,7 +29,7 @@ export const getPost = async (req, res) => {
 
 export const createPost = async (req, res) => {
     const post = req.body;
-    console.log(post);
+
     const newPostMessage = new PostMessage({
         ...post,
         creator: req.userId,
@@ -47,7 +47,15 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
     const { id } = req.params;
-    const { title, description, creator, selectedFile, tags } = req.body;
+    const {
+        title,
+        description,
+        creator,
+        selectedFile,
+        tags,
+        imageUrl,
+        linkUrl,
+    } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send(`No post with id: ${id}`);
@@ -57,6 +65,8 @@ export const updatePost = async (req, res) => {
         title,
         description,
         tags,
+        imageUrl,
+        linkUrl,
         selectedFile,
         _id: id,
     };

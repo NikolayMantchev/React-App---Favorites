@@ -16,8 +16,12 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 
 import useStyles from "./styles";
 
+import useToken from "../../../common/useToken";
+
 const Post = ({ post, setCurrentId }) => {
     const classes = useStyles();
+
+    const { decodedToken } = useToken();
 
     return (
         <Card className={classes.card}>
@@ -57,47 +61,53 @@ const Post = ({ post, setCurrentId }) => {
                 </Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Fab
-                    size="small"
-                    color="primary"
-                    aria-label="add"
-                    className={classes.margin}
-                    // onClick={() => dispatch(createPost(post._id))}
-                >
-                    <AddIcon />
-                </Fab>
-                <Fab
-                    size="medium"
-                    color="secondary"
-                    aria-label="like"
-                    // onClick={() => dispatch(likePost(post._id))}
-                >
-                    <FavoriteIcon />
-                    <Typography> {post.likeCount}</Typography>
-                </Fab>
-
-                <Fab
-                    // component={Link}
-                    // to={`/post/${post._id}`}
-                    size="small"
-                    color="secondary"
-                    aria-label="edit"
-                    className={classes.margin}
-                    // onClick={() => setCurrentId(post._id)}
-                >
-                    <Link to={`/post/${post._id}`}>
-                        <EditIcon />
-                    </Link>
-                </Fab>
-                <Fab
-                    size="small"
-                    color="primary"
-                    aria-label="delete"
-                    className={classes.margin}
-                    // onClick={() => dispatch(deletePost(post._id))}
-                >
-                    <DeleteIcon />
-                </Fab>
+                {post.creator !== decodedToken?.id ? (
+                    <>
+                        <Fab
+                            size="small"
+                            color="primary"
+                            aria-label="add"
+                            className={classes.margin}
+                            // onClick={() => dispatch(createPost(post._id))}
+                        >
+                            <AddIcon />
+                        </Fab>
+                        <Fab
+                            size="medium"
+                            color="secondary"
+                            aria-label="like"
+                            // onClick={() => dispatch(likePost(post._id))}
+                        >
+                            <FavoriteIcon />
+                            <Typography> {post.likeCount}</Typography>
+                        </Fab>
+                    </>
+                ) : (
+                    <>
+                        <Fab
+                            // component={Link}
+                            // to={`/post/${post._id}`}
+                            size="small"
+                            color="secondary"
+                            aria-label="edit"
+                            className={classes.margin}
+                            // onClick={() => setCurrentId(post._id)}
+                        >
+                            <Link to={`/post/${post._id}`}>
+                                <EditIcon />
+                            </Link>
+                        </Fab>
+                        <Fab
+                            size="small"
+                            color="primary"
+                            aria-label="delete"
+                            className={classes.margin}
+                            // onClick={() => dispatch(deletePost(post._id))}
+                        >
+                            <DeleteIcon />
+                        </Fab>
+                    </>
+                )}
             </CardActions>
         </Card>
     );

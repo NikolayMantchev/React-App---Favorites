@@ -88,7 +88,7 @@ const Navbar = () => {
                             variant="h6"
                             color="primary"
                         >
-                            {user?.email}
+                            Welcome {user?.name}
                         </Typography>
                         <Button
                             variant="contained"

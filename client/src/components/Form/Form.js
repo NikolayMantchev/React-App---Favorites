@@ -29,28 +29,28 @@ const Form = ({ history }) => {
 
     const { id } = useParams();
 
-    // useEffect(() => {
-    //     if (!token) history.push("/signin");
-    // }, [history, token]);
+    useEffect(() => {
+        if (!token) history.push("/signin");
+    }, [history, token]);
 
-    // const { data, isPending, error } = useFetch("http://localhost:5001/posts");
+    const { data, isPending, error } = useFetch("http://localhost:5001/posts");
 
-    // const posts = data || [];
+    const posts = data || [];
 
-    // useEffect(() => {
-    //     if (posts.length > 0) {
-    //         const curentPost = posts.find((p) => p._id === id);
+    useEffect(() => {
+        if (posts.length > 0) {
+            const curentPost = posts.find((p) => p._id === id);
 
-    //         if (curentPost) {
-    //             setPost(curentPost);
-    //         }
-    //     }
-    // }, [posts]);
+            if (curentPost) {
+                setPost(curentPost);
+            }
+        }
+    }, [posts]);
 
     const handleChange = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
     };
-
+    console.log({ post });
     const createPost = (e) => {
         fetch("http://localhost:5001/posts", {
             method: "POST",
@@ -109,6 +109,7 @@ const Form = ({ history }) => {
                         setPost({ ...post, creator: e.target.value })
                     }
                 /> */}
+
                     <TextField
                         name="title"
                         variant="outlined"

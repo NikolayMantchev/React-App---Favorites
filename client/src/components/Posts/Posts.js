@@ -9,7 +9,6 @@ const Posts = () => {
     const classes = useStyles();
     const { data, isPending, error } = useFetch("http://localhost:5001/posts");
     const posts = data || [];
-    console.log({ posts });
     return (
         <>
             <div>
