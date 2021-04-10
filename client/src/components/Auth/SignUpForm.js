@@ -40,7 +40,7 @@ const SignUp = () => {
     const signUpClick = (e) => {
         const { firstName, lastName, email, password, confirmPassword } = form;
 
-        if (password !== confirmPassword) return (error) => setError(error);
+        // if (password !== confirmPassword) return (error) => setError(error);
 
         fetch("http://localhost:5001/user/signup", {
             method: "POST",
@@ -49,6 +49,7 @@ const SignUp = () => {
                 lastName,
                 email,
                 password,
+                confirmPassword,
             }),
             headers: {
                 Accept: "application/json",

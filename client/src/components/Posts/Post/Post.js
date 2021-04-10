@@ -91,17 +91,17 @@ const Post = ({ post, setCurrentId }) => {
                     <>
                         <Tooltip title="Edit" aria-label="edit">
                             <Fab
-                                // component={Link}
-                                // to={`/post/${post._id}`}
+                                component={Link}
+                                to={`/post/${post._id}`}
                                 size="small"
                                 color="secondary"
                                 aria-label="edit"
                                 className={classes.margin}
                                 // onClick={() => setCurrentId(post._id)}
                             >
-                                <Link to={`/post/${post._id}`}>
-                                    <EditIcon />
-                                </Link>
+                                {/* <Link to={`/post/${post._id}`}> */}
+                                <EditIcon />
+                                {/* </Link> */}
                             </Fab>
                         </Tooltip>
                         <Tooltip title="Delete" aria-label="delete">

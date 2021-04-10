@@ -41,11 +41,13 @@ const Navbar = () => {
                     component={Link}
                     to="/"
                     className={classes.heading}
-                    variant="h4"
+                    variant="h6"
                     align="center"
+                    color="primary"
                 >
                     Favorites
                 </Typography>
+
                 <img
                     className={classes.image}
                     src={favImage}

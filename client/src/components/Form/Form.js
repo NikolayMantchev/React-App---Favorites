@@ -26,14 +26,14 @@ const initState = {
 };
 const Form = ({ history }) => {
     const [post, setPost] = useState(initState);
-
+    const [error, setError] = useState("");
     const { id } = useParams();
 
     useEffect(() => {
         if (!token) history.push("/signin");
     }, [history, token]);
 
-    const { data, isPending, error } = useFetch("http://localhost:5001/posts");
+    const { data } = useFetch("http://localhost:5001/posts");
 
     const posts = data || [];
 
@@ -51,6 +51,7 @@ const Form = ({ history }) => {
         setPost({ ...post, [e.target.name]: e.target.value });
     };
     console.log({ post });
+
     const createPost = (e) => {
         fetch("http://localhost:5001/posts", {
             method: "POST",
@@ -63,10 +64,35 @@ const Form = ({ history }) => {
         })
             .then((result) => result.json())
             .then((result) => {
+                console.log(result.message);
+                if (result.message) {
+                    return setError(result.message);
+                }
+                history.push("/");
+            })
+            .catch((error) => setError(error.message));
+    };
+
+    const updatePost = (e) => {
+        // for updatePost path must be .../id
+        console.log(post._id);
+        fetch(`http://localhost:5001/posts/${post._id}`, {
+            method: "POST",
+            body: JSON.stringify(post),
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                // Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((result) => result.json())
+            .then((result) => {
+                console.log({ result });
                 history.push("/");
             })
             .catch((error) => console.log({ error }));
     };
+
     const classes = useStyles();
 
     const clear = () => {
@@ -75,16 +101,18 @@ const Form = ({ history }) => {
 
     // const handleSubmit = async (e) => {
     //     e.preventDefault();
-    //     const { title } = e.target;
-    //     console.log(title.value);
 
-    //     //     if (currentId === 0) {
-    //     //         // dispatch(createPost(postData));
-    //     //         clear();
-    //     //     } else {
-    //     //         // dispatch(updatePost(currentId, postData));
-    //     //         clear();
-    //     //     }
+    //     const { title } = e.target;
+    //     console.log({ e });
+    //     console.log({ id });
+
+    //     if (id === undefined) {
+    //         createPost();
+    //         // clear();
+    //     } else {
+    //         updatePost();
+    //         // clear();
+    //     }
     // };
 
     return (
@@ -184,6 +212,17 @@ const Form = ({ history }) => {
                     >
                         Submit
                     </Button>
+                    <div>
+                        {error && (
+                            <Typography
+                                component="h3"
+                                variant="h6"
+                                color="secondary"
+                            >
+                                {error}
+                            </Typography>
+                        )}
+                    </div>
                     <Button
                         variant="contained"
                         color="secondary"

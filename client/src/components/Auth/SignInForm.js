@@ -35,9 +35,6 @@ const SignIn = () => {
     const handleChange = (e) =>
         setForm({ ...form, [e.target.name]: e.target.value });
 
-    // const handleError = (error) => {
-
-    // }
     const signInClick = (e) => {
         const { email, password } = form;
 
