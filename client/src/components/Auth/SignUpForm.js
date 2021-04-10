@@ -58,7 +58,6 @@ const SignUp = () => {
         })
             .then((result) => result.json())
             .then((result) => {
-                console.log({ result });
                 if (result.message) {
                     return setError(result.message);
                 }
