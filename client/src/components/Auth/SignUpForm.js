@@ -34,10 +34,12 @@ const SignUp = () => {
 
     const handleChange = (e) =>
         setForm({ ...form, [e.target.name]: e.target.value });
+
     const [error, setError] = useState("");
+
     const signUpClick = (e) => {
         const { firstName, lastName, email, password, confirmPassword } = form;
-        console.log("signUp Clicked...");
+
         if (password !== confirmPassword) return (error) => setError(error);
 
         fetch("http://localhost:5001/user/signup", {
@@ -55,16 +57,21 @@ const SignUp = () => {
         })
             .then((result) => result.json())
             .then((result) => {
+                console.log({ result });
+                if (result.message) {
+                    return setError(result.message);
+                }
                 localStorage.setItem("token", result.token);
+                localStorage.setItem("name", result.result.name);
                 const decodedToken = decode(result.token);
                 localStorage.setItem(
                     "decodedToken",
                     JSON.stringify(decodedToken)
                 );
-                console.log({ result });
+                history.push("/");
             })
             .catch((err) => setError(err));
-        history.push("/");
+        e.preventDefault();
     };
 
     return (
@@ -125,7 +132,17 @@ const SignUp = () => {
                     >
                         Sign Up
                     </Button>
-
+                    <div>
+                        {error && (
+                            <Typography
+                                component="h3"
+                                variant="h6"
+                                color="secondary"
+                            >
+                                {error}
+                            </Typography>
+                        )}
+                    </div>
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Button component={Link} to="/signin">

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import decode from "jwt-decode";
+
 import {
     Avatar,
     Button,
@@ -7,6 +8,7 @@ import {
     Grid,
     Typography,
     Container,
+    LinearProgress,
 } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 
@@ -33,6 +35,9 @@ const SignIn = () => {
     const handleChange = (e) =>
         setForm({ ...form, [e.target.name]: e.target.value });
 
+    // const handleError = (error) => {
+
+    // }
     const signInClick = (e) => {
         const { email, password } = form;
 
@@ -46,15 +51,20 @@ const SignIn = () => {
         })
             .then((result) => result.json())
             .then((result) => {
+                if (result.message) {
+                    return setError(result.message);
+                }
                 localStorage.setItem("token", result.token);
+                localStorage.setItem("name", result.result.name);
                 const decodedToken = decode(result.token);
                 localStorage.setItem(
                     "decodedToken",
                     JSON.stringify(decodedToken)
                 );
+
                 history.push("/");
             })
-            .catch((err) => setError(err));
+            .catch((err) => setError(err.message));
 
         e.preventDefault();
     };
@@ -82,6 +92,17 @@ const SignIn = () => {
                             type={showPassword ? "text" : "password"}
                             handleShowPassword={handleShowPassword}
                         />
+                        <div>
+                            {error && (
+                                <Typography
+                                    component="h3"
+                                    variant="h6"
+                                    color="secondary"
+                                >
+                                    {error}
+                                </Typography>
+                            )}
+                        </div>
                     </Grid>
                     <Button
                         type="submit"

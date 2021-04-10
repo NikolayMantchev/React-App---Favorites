@@ -24,22 +24,25 @@ const MyFavorites = () => {
 
     return (
         <>
-            <div>
-                {isPending && <CircularProgress />}
-                {error && <div>error</div>}
-            </div>
-            <Grid
-                className={classes.container}
-                container
-                alignItems="stretch"
-                spacing={3}
-            >
-                {myposts.map((post) => (
-                    <Grid key={post._id} item xs={6} sm={3} md={3}>
-                        <Post post={post} />
-                    </Grid>
-                ))}
-            </Grid>
+            {myposts ? (
+                <Grid
+                    className={classes.container}
+                    container
+                    alignItems="stretch"
+                    spacing={3}
+                >
+                    {myposts.map((post) => (
+                        <Grid key={post._id} item xs={6} sm={3} md={3}>
+                            <Post post={post} />
+                        </Grid>
+                    ))}
+                </Grid>
+            ) : (
+                <div>
+                    {isPending && <CircularProgress />}
+                    {error && <div>error</div>}
+                </div>
+            )}
         </>
     );
 };

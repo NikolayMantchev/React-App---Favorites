@@ -13,6 +13,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import useStyles from "./styles";
 
@@ -63,49 +64,57 @@ const Post = ({ post, setCurrentId }) => {
             <CardActions className={classes.cardActions}>
                 {post.creator !== decodedToken?.id ? (
                     <>
-                        <Fab
-                            size="small"
-                            color="primary"
-                            aria-label="add"
-                            className={classes.margin}
-                            // onClick={() => dispatch(createPost(post._id))}
-                        >
-                            <AddIcon />
-                        </Fab>
-                        <Fab
-                            size="medium"
-                            color="secondary"
-                            aria-label="like"
-                            // onClick={() => dispatch(likePost(post._id))}
-                        >
-                            <FavoriteIcon />
-                            <Typography> {post.likeCount}</Typography>
-                        </Fab>
+                        <Tooltip title="Add" aria-label="add">
+                            <Fab
+                                size="small"
+                                color="primary"
+                                aria-label="add"
+                                className={classes.margin}
+                                // onClick={() => dispatch(createPost(post._id))}
+                            >
+                                <AddIcon />
+                            </Fab>
+                        </Tooltip>
+                        <Tooltip title="Like" aria-label="like" size="lg">
+                            <Fab
+                                size="medium"
+                                color="secondary"
+                                aria-label="like"
+                                // onClick={() => dispatch(likePost(post._id))}
+                            >
+                                <FavoriteIcon />
+                                <Typography> {post.likeCount}</Typography>
+                            </Fab>
+                        </Tooltip>
                     </>
                 ) : (
                     <>
-                        <Fab
-                            // component={Link}
-                            // to={`/post/${post._id}`}
-                            size="small"
-                            color="secondary"
-                            aria-label="edit"
-                            className={classes.margin}
-                            // onClick={() => setCurrentId(post._id)}
-                        >
-                            <Link to={`/post/${post._id}`}>
-                                <EditIcon />
-                            </Link>
-                        </Fab>
-                        <Fab
-                            size="small"
-                            color="primary"
-                            aria-label="delete"
-                            className={classes.margin}
-                            // onClick={() => dispatch(deletePost(post._id))}
-                        >
-                            <DeleteIcon />
-                        </Fab>
+                        <Tooltip title="Edit" aria-label="edit">
+                            <Fab
+                                // component={Link}
+                                // to={`/post/${post._id}`}
+                                size="small"
+                                color="secondary"
+                                aria-label="edit"
+                                className={classes.margin}
+                                // onClick={() => setCurrentId(post._id)}
+                            >
+                                <Link to={`/post/${post._id}`}>
+                                    <EditIcon />
+                                </Link>
+                            </Fab>
+                        </Tooltip>
+                        <Tooltip title="Delete" aria-label="delete">
+                            <Fab
+                                size="small"
+                                color="primary"
+                                aria-label="delete"
+                                className={classes.margin}
+                                // onClick={() => dispatch(deletePost(post._id))}
+                            >
+                                <DeleteIcon />
+                            </Fab>
+                        </Tooltip>
                     </>
                 )}
             </CardActions>

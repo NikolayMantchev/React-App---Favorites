@@ -25,6 +25,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
+        const name = localStorage.getItem("name");
 
         if (token) {
             const decodedToken = decode(token);
@@ -32,7 +33,7 @@ const Navbar = () => {
             setUser(decodedToken);
         }
     }, [location]);
-
+    const name = localStorage.getItem("name");
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
@@ -63,7 +64,7 @@ const Navbar = () => {
                     component={Link}
                     to="/myfavorites"
                 >
-                    My Favorites
+                    My Fav's
                 </Fab>
             </div>
             <div>
@@ -88,7 +89,7 @@ const Navbar = () => {
                             variant="h6"
                             color="primary"
                         >
-                            Welcome {user?.name}
+                            Welcome, {name}
                         </Typography>
                         <Button
                             variant="contained"

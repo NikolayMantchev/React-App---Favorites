@@ -1,6 +1,12 @@
 import React from "react";
-import { Grid, CircularProgress } from "@material-ui/core";
+import {
+    Grid,
+    CircularProgress,
+    Typography,
+    LinearProgress,
+} from "@material-ui/core";
 import useFetch from "../../api/useFetch";
+import badGataway from "../../images/badGataway.jpeg";
 
 import Post from "./Post/Post";
 import useStyles from "./styles";
@@ -9,11 +15,19 @@ const Posts = () => {
     const classes = useStyles();
     const { data, isPending, error } = useFetch("http://localhost:5001/posts");
     const posts = data || [];
+
     return (
         <>
             <div>
                 {isPending && <CircularProgress />}
-                {error && <div>error</div>}
+                {error && <LinearProgress>502 Bad Gataway</LinearProgress>}
+                {error && (
+                    <img
+                        className={classes.image}
+                        src={badGataway}
+                        alt="error"
+                    />
+                )}
             </div>
             <Grid
                 className={classes.container}
