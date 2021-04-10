@@ -1,23 +1,20 @@
-import React, { useContext, useEffect } from 'react'
-import { Container, Grow, Grid } from '@material-ui/core'
-import { StateContext } from '../../state/context'
-import useAsyncActions from '../../state/asyncActions/post'
+import React, { useContext, useEffect } from "react";
+import { StateContext } from "../../state/context";
+import useAsyncActions from "../../state/asyncActions/post";
 
-import Posts from '../Posts/Posts'
+import Posts from "../Posts/Posts";
 
 const Home = ({ filter }) => {
-  const { loadPosts } = useAsyncActions()
+    const { loadPosts } = useAsyncActions();
 
-  const { post } = useContext(StateContext)
-  const { fetching: isPending, error, posts } = post
+    const { post } = useContext(StateContext);
+    const { fetching: isPending, error, posts } = post;
 
-  useEffect(() => {
-    loadPosts()
-  }, [])
+    useEffect(() => {
+        loadPosts();
+    }, []);
 
-  return (
-    <Posts posts={posts} error={error} isPending={isPending}/>
-  )
-}
+    return <Posts posts={posts} error={error} isPending={isPending} />;
+};
 
-export default Home
+export default Home;
