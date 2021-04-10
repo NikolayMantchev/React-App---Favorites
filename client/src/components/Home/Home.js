@@ -1,27 +1,23 @@
-import React, { useState } from "react";
-import { Container, Grow, Grid } from "@material-ui/core";
+import React, { useContext, useEffect } from 'react'
+import { Container, Grow, Grid } from '@material-ui/core'
+import { StateContext } from '../../state/context'
+import useAsyncActions from '../../state/asyncActions/post'
 
-import Posts from "../Posts/Posts";
+import Posts from '../Posts/Posts'
 
-const Home = () => {
-    const [currentId, setCurrentId] = useState(0);
+const Home = ({ filter }) => {
+  const { loadPosts } = useAsyncActions()
 
-    return (
-        <Grow in>
-            <Container>
-                <Grid
-                    container
-                    justify="space-between"
-                    alignItems="stretch"
-                    spacing={6}
-                >
-                    <Grid item xs={12} sm={12}>
-                        <Posts setCurrentId={setCurrentId} />
-                    </Grid>
-                </Grid>
-            </Container>
-        </Grow>
-    );
-};
+  const { post } = useContext(StateContext)
+  const { fetching: isPending, error, posts } = post
 
-export default Home;
+  useEffect(() => {
+    loadPosts()
+  }, [])
+
+  return (
+    <Posts posts={posts} error={error} isPending={isPending}/>
+  )
+}
+
+export default Home

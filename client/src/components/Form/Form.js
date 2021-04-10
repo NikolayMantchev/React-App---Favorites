@@ -1,133 +1,144 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import {
-    TextField,
-    Button,
-    Typography,
-    Paper,
-    lighten,
-} from "@material-ui/core";
-import { Container } from "@material-ui/core";
-import useToken from "../../common/useToken";
-import FileBase from "react-file-base64";
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  lighten,
+} from '@material-ui/core'
+import { Container } from '@material-ui/core'
+import useToken from '../../common/useToken'
+import FileBase from 'react-file-base64'
 
-import useStyles from "./styles";
-import useFetch from "../../api/useFetch";
+import useStyles from './styles'
+import { StateContext } from '../../state/context'
+import useAsyncActions from '../../state/asyncActions/post'
 
-const { token, decodedToken } = useToken();
+const { token, decodedToken } = useToken()
 
 const initState = {
-    creator: decodedToken?.id || "",
-    title: "",
-    description: "",
-    selectedFile: "",
-    imageUrl: "",
-    linkUrl: "",
-};
+  creator: decodedToken?.id || '',
+  title: '',
+  description: '',
+  selectedFile: '',
+  imageUrl: '',
+  linkUrl: '',
+}
 const Form = ({ history }) => {
-    const [post, setPost] = useState(initState);
-    const [error, setError] = useState("");
-    const { id } = useParams();
+  const [post, setPost] = useState(initState)
+  const { id } = useParams()
 
-    useEffect(() => {
-        if (!token) history.push("/signin");
-    }, [history, token]);
+  const {addPost, updatePost} = useAsyncActions()
 
-    const { data } = useFetch("http://localhost:5001/posts");
+  useEffect(() => {
+    console.log(token)
+    if (!token) history.push('/signin')
+  }, [history, token])
 
-    const posts = data || [];
+  // const { data } = useFetch("http://localhost:5001/posts");
+  const {post: postState} = useContext(StateContext)
+  const {posts, error} = postState
 
-    useEffect(() => {
-        if (posts.length > 0) {
-            const curentPost = posts.find((p) => p._id === id);
+  useEffect(() => {
+    if (posts.length > 0) {
+      const curentPost = posts.find((p) => p._id === id)
 
-            if (curentPost) {
-                setPost(curentPost);
-            }
-        }
-    }, [posts]);
+      if (curentPost) {
+        setPost(curentPost)
+      }
+    }
+  }, [posts])
 
-    const handleChange = (e) => {
-        setPost({ ...post, [e.target.name]: e.target.value });
-    };
-    console.log({ post });
+  const handleChange = (e) => {
+    setPost({ ...post, [e.target.name]: e.target.value })
+  }
+  console.log({ post })
 
-    const createPost = (e) => {
-        fetch("http://localhost:5001/posts", {
-            method: "POST",
-            body: JSON.stringify(post),
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
-            .then((result) => result.json())
-            .then((result) => {
-                console.log(result.message);
-                if (result.message) {
-                    return setError(result.message);
-                }
-                history.push("/");
-            })
-            .catch((error) => setError(error.message));
-    };
+  const upsertPost = (e) => {
+    e.preventDefault()
 
-    const updatePost = (e) => {
-        // for updatePost path must be .../id
-        console.log(post._id);
-        fetch(`http://localhost:5001/posts/${post._id}`, {
-            method: "POST",
-            body: JSON.stringify(post),
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                // Authorization: `Bearer ${token}`,
-            },
-        })
-            .then((result) => result.json())
-            .then((result) => {
-                console.log({ result });
-                history.push("/");
-            })
-            .catch((error) => console.log({ error }));
-    };
+    const fn = post._id ? updatePost : addPost
 
-    const classes = useStyles();
+    fn(post)
+      .then(r => {
+        if (r.status !== 'error')history.push('/')
+      })
+  }
+  // fetch('http://localhost:5001/posts', {
+  //   method: 'POST',
+  //   body: JSON.stringify(post),
+  //   headers: {
+  //     Accept: 'application/json',
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // })
+  //   .then((result) => result.json())
+  //   .then((result) => {
+  //     console.log(result.message)
+  //     if (result.message) {
+  //       return setError(result.message)
+  //     }
+  //     history.push('/')
+  //   })
+  //   .catch((error) => setError(error.message))
+  //
+  // const updatePost = (e) => {
+  //   // for updatePost path must be .../id
+  //   console.log(post._id)
+  //   fetch(`http://localhost:5001/posts/${post._id}`, {
+  //     method: 'POST',
+  //     body: JSON.stringify(post),
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //       // Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((result) => result.json())
+  //     .then((result) => {
+  //       console.log({ result })
+  //       history.push('/')
+  //     })
+  //     .catch((error) => console.log({ error }))
+  // }
 
-    const clear = () => {
-        setPost(initState);
-    };
+  const classes = useStyles()
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
+  const clear = () => {
+    setPost(initState)
+  }
 
-    //     const { title } = e.target;
-    //     console.log({ e });
-    //     console.log({ id });
+  // const handleSubmit = async (e) => {
+  //     e.preventDefault();
 
-    //     if (id === undefined) {
-    //         createPost();
-    //         // clear();
-    //     } else {
-    //         updatePost();
-    //         // clear();
-    //     }
-    // };
+  //     const { title } = e.target;
+  //     console.log({ e });
+  //     console.log({ id });
 
-    return (
-        <Container component="main" maxWidth="md">
-            <Paper className={classes.paper}>
-                <form
-                    autoComplete="off"
-                    noValidate
-                    className={`${classes.root} ${classes.form}`}
-                    // onSubmit={handleSubmit}
-                >
-                    <Typography variant="h6">
-                        {id ? "Edit" : "Create Favorite"}
-                    </Typography>
-                    {/* <TextField
+  //     if (id === undefined) {
+  //         createPost();
+  //         // clear();
+  //     } else {
+  //         updatePost();
+  //         // clear();
+  //     }
+  // };
+
+  return (
+    <Container component="main" maxWidth="md">
+      <Paper className={classes.paper}>
+        <form
+          autoComplete="off"
+          noValidate
+          className={`${classes.root} ${classes.form}`}
+          // onSubmit={handleSubmit}
+        >
+          <Typography variant="h6">
+            {id ? 'Edit' : 'Create Favorite'}
+          </Typography>
+          {/* <TextField
                     name="creator"
                     variant="outlined"
                     label="Creator"
@@ -138,43 +149,43 @@ const Form = ({ history }) => {
                     }
                 /> */}
 
-                    <TextField
-                        name="title"
-                        variant="outlined"
-                        label="Title"
-                        fullWidth
-                        value={post.title}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        name="description"
-                        variant="outlined"
-                        label="Description"
-                        fullWidth
-                        multiline
-                        rows={3}
-                        value={post.description}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        name="imageUrl"
-                        variant="outlined"
-                        label="Image Url"
-                        fullWidth
-                        multiline
-                        rows={1}
-                        value={post.imageUrl}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        name="linkUrl"
-                        variant="outlined"
-                        label="Link Url"
-                        fullWidth
-                        value={post.linkUrl}
-                        onChange={handleChange}
-                    />
-                    {/* <TextField
+          <TextField
+            name="title"
+            variant="outlined"
+            label="Title"
+            fullWidth
+            value={post.title}
+            onChange={handleChange}
+          />
+          <TextField
+            name="description"
+            variant="outlined"
+            label="Description"
+            fullWidth
+            multiline
+            rows={3}
+            value={post.description}
+            onChange={handleChange}
+          />
+          <TextField
+            name="imageUrl"
+            variant="outlined"
+            label="Image Url"
+            fullWidth
+            multiline
+            rows={1}
+            value={post.imageUrl}
+            onChange={handleChange}
+          />
+          <TextField
+            name="linkUrl"
+            variant="outlined"
+            label="Link Url"
+            fullWidth
+            value={post.linkUrl}
+            onChange={handleChange}
+          />
+          {/* <TextField
                     name="tags"
                     variant="outlined"
                     label="Tags (coma separated)"
@@ -188,54 +199,54 @@ const Form = ({ history }) => {
                     }
                 /> */}
 
-                    <div className={classes.fileInput}>
-                        <FileBase
-                            type="file"
-                            multiple={false}
-                            onDone={({ base64 }) =>
-                                setPost({
-                                    ...post,
-                                    selectedFile: base64,
-                                })
-                            }
-                        />
-                    </div>
+          <div className={classes.fileInput}>
+            <FileBase
+              type="file"
+              multiple={false}
+              onDone={({ base64 }) =>
+                setPost({
+                  ...post,
+                  selectedFile: base64,
+                })
+              }
+            />
+          </div>
 
-                    <Button
-                        className={classes.buttonSubmit}
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        fullWidth
-                        onClick={createPost}
-                        // type="submit"
-                    >
-                        Submit
-                    </Button>
-                    <div>
-                        {error && (
-                            <Typography
-                                component="h3"
-                                variant="h6"
-                                color="secondary"
-                            >
-                                {error}
-                            </Typography>
-                        )}
-                    </div>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        size="small"
-                        onClick={clear}
-                        fullWidth
-                    >
-                        Clear
-                    </Button>
-                </form>
-            </Paper>
-        </Container>
-    );
-};
+          <Button
+            className={classes.buttonSubmit}
+            variant="contained"
+            color="primary"
+            size="large"
+            fullWidth
+            onClick={upsertPost}
+            // type="submit"
+          >
+            Submit
+          </Button>
+          <div>
+            {error && (
+              <Typography
+                component="h3"
+                variant="h6"
+                color="secondary"
+              >
+                {error}
+              </Typography>
+            )}
+          </div>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            onClick={clear}
+            fullWidth
+          >
+            Clear
+          </Button>
+        </form>
+      </Paper>
+    </Container>
+  )
+}
 
-export default Form;
+export default Form

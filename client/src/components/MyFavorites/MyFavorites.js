@@ -1,50 +1,37 @@
-import React, { useEffect } from "react";
-import { Grid, CircularProgress } from "@material-ui/core";
-import useFetch from "../../api/useFetch";
-import useToken from "../../common/useToken";
-
-import Post from "../Posts/Post/Post";
-import useStyles from "./styles";
-import { useHistory } from "react-router";
+import React, { useContext, useEffect } from 'react'
+import useToken from '../../common/useToken'
+import useStyles from './styles'
+import { useHistory } from 'react-router'
+import useAsyncActions from '../../state/asyncActions/post'
+import { StateContext } from '../../state/context'
+import Posts from '../Posts/Posts'
+import SignInForm from '../Auth/SignInForm'
 
 const MyFavorites = () => {
-    const classes = useStyles();
-    const { data, isPending, error } = useFetch("http://localhost:5001/posts");
-    const posts = data || [];
-    const { decodedToken } = useToken();
+  const classes = useStyles()
 
-    const history = useHistory();
-    useEffect(() => {
-        if (!decodedToken) {
-            history.push("/signin");
-        }
-    }, [decodedToken, history]);
+  const { decodedToken } = useToken()
+  const { loadPosts } = useAsyncActions()
 
-    const myposts = posts.filter((p) => p.creator === decodedToken.id);
+  useEffect(() => {
+    loadPosts()
+  }, [])
 
-    return (
-        <>
-            {myposts ? (
-                <Grid
-                    className={classes.container}
-                    container
-                    alignItems="stretch"
-                    spacing={3}
-                >
-                    {myposts.map((post) => (
-                        <Grid key={post._id} item xs={6} sm={3} md={3}>
-                            <Post post={post} />
-                        </Grid>
-                    ))}
-                </Grid>
-            ) : (
-                <div>
-                    {isPending && <CircularProgress />}
-                    {error && <div>error</div>}
-                </div>
-            )}
-        </>
-    );
-};
+  const { post } = useContext(StateContext)
+  const { fetching: isPending, error, posts } = post
 
-export default MyFavorites;
+  const history = useHistory()
+
+  if (!decodedToken) {
+    history.push('/signin')
+    return (<SignInForm/>)
+  }
+
+  const myposts = posts.filter((p) => p.creator === decodedToken.id)
+
+  return (
+    <Posts posts={myposts} error={error} isPending={isPending}/>
+  )
+}
+
+export default MyFavorites

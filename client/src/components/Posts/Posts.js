@@ -1,48 +1,69 @@
-import React from "react";
+import React, { useContext } from 'react'
 import {
-    Grid,
-    CircularProgress,
-    Typography,
-    LinearProgress,
-} from "@material-ui/core";
-import useFetch from "../../api/useFetch";
-import badGataway from "../../images/badGataway.jpeg";
+  Grid,
+  CircularProgress,
+  Typography,
+  LinearProgress, Container, Grow,
+} from '@material-ui/core'
+import badGateway from '../../images/badGataway.jpeg'
 
-import Post from "./Post/Post";
-import useStyles from "./styles";
+import Post from './Post/Post'
+import useStyles from './styles'
 
-const Posts = () => {
-    const classes = useStyles();
-    const { data, isPending, error } = useFetch("http://localhost:5001/posts");
-    const posts = data || [];
+const Posts = ({posts = [], error, isPending}) => {
+  const classes = useStyles()
 
-    return (
-        <>
-            <div>
-                {isPending && <CircularProgress />}
-                {error && <LinearProgress>502 Bad Gataway</LinearProgress>}
-                {error && (
-                    <img
+  posts.sort((a, b) => {
+    const dateA = Date.parse(a.createdAt)
+    const dateB = Date.parse(b.createdAt)
+
+    return dateA - dateB
+  })
+
+  return (
+    <Grow in>
+      <Container>
+        <Grid
+          container
+          justify="space-between"
+          alignItems="stretch"
+          spacing={6}
+        >
+          <Grid item xs={12} sm={12}>
+            {isPending && posts.length === 0
+              ? <CircularProgress/>
+              : (
+                <>
+                  <div>
+                    {error && <LinearProgress>502 Bad Gateway</LinearProgress>}
+                    {error && (
+                      <img
                         className={classes.image}
-                        src={badGataway}
+                        src={badGateway}
                         alt="error"
-                    />
-                )}
-            </div>
-            <Grid
-                className={classes.container}
-                container
-                alignItems="stretch"
-                spacing={6}
-            >
-                {posts.map((post) => (
-                    <Grid key={post._id} item xs={12} sm={6} md={3} lg={3}>
-                        <Post post={post} />
-                    </Grid>
-                ))}
-            </Grid>
-        </>
-    );
-};
+                      />
+                    )}
+                  </div>
+                  <Grid
+                    className={classes.container}
+                    container
+                    alignItems="stretch"
+                    spacing={6}
+                  >
+                    {posts.map((post) => (
+                      <Grid key={post._id} item xs={12} sm={6} md={3} lg={3}>
+                        <Post post={post}/>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </>
+              )}
+          </Grid>
+        </Grid>
+      </Container>
+    </Grow>
 
-export default Posts;
+  )
+}
+
+export default Posts
