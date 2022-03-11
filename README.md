@@ -29,6 +29,8 @@ In the project, you can:
 
 ### Additional Clarifications
 
+Created with learning purpose. It includes all CRUD operations, Authentication, Autorization, Validation and Error handling
+
 This app have responsive design and can be use with mobile phone.
 
 Used styled-jsx, material-ui, useReducer, HOC(guarded routes), Hook(using fetch), Error Boundary which fetches to server
