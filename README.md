@@ -29,8 +29,12 @@ In the project, you can:
 
 ### Additional Clarifications
 
-This app have responsive design and can be use with mobile phone.
+Created with learning purpose. It includes all CRUD operations, Authentication, Autorization, Validation and Error handling
 
-Used styled-jsx, material-ui, useReducer, HOC(guarded routes), Hook(using fetch), Error Boundary which fetches to server
+This app have responsive design and can be used with mobile phone.
+
+Used for client side: styled-jsx, material-ui, useReducer, HOC(guarded routes), Hook(using fetch), Error Boundary which fetches to server
+
+Used for server side: Node.js, Express, Mongo, Mongoose, bcryptjs, jsonwebtoken, 
 
 Enjoy it!
