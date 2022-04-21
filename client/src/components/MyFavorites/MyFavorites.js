@@ -1,37 +1,35 @@
-import React, { useContext, useEffect } from 'react'
-import useToken from '../../common/useToken'
-import useStyles from './styles'
-import { useHistory } from 'react-router'
-import useAsyncActions from '../../state/asyncActions/post'
-import { StateContext } from '../../state/context'
-import Posts from '../Posts/Posts'
-import SignInForm from '../Auth/SignInForm'
+import React, { useContext, useEffect } from "react";
+import useToken from "../../common/useToken";
+import useStyles from "./styles";
+import { useHistory } from "react-router";
+import useAsyncActions from "../../state/asyncActions/post";
+import { StateContext } from "../../state/context";
+import Posts from "../Posts/Posts";
+import SignInForm from "../Auth/SignInForm";
 
 const MyFavorites = () => {
-  const classes = useStyles()
+    // const classes = useStyles()
 
-  const { decodedToken } = useToken()
-  const { loadPosts } = useAsyncActions()
+    const { decodedToken } = useToken();
+    const { loadPosts } = useAsyncActions();
 
-  useEffect(() => {
-    loadPosts()
-  }, [])
+    useEffect(() => {
+        loadPosts();
+    }, []);
 
-  const { post } = useContext(StateContext)
-  const { fetching: isPending, error, posts } = post
+    const { post } = useContext(StateContext);
+    const { fetching: isPending, error, posts } = post;
 
-  const history = useHistory()
+    const history = useHistory();
 
-  if (!decodedToken) {
-    history.push('/signin')
-    return (<SignInForm/>)
-  }
+    if (!decodedToken) {
+        history.push("/signin");
+        return <SignInForm />;
+    }
 
-  const myposts = posts.filter((p) => p.creator === decodedToken.id)
+    const myposts = posts.filter((p) => p.creator === decodedToken.id);
 
-  return (
-    <Posts posts={myposts} error={error} isPending={isPending}/>
-  )
-}
+    return <Posts posts={myposts} error={error} isPending={isPending} />;
+};
 
-export default MyFavorites
+export default MyFavorites;

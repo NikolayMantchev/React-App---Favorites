@@ -36,7 +36,7 @@ const Form = ({ history }) => {
     // }, id);
 
     useEffect(() => {
-        console.log(token);
+        // console.log(token);
         if (!token) history.push("/signin");
     }, [history, token]);
 
@@ -56,7 +56,7 @@ const Form = ({ history }) => {
     const handleChange = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
     };
-    console.log({ post });
+    // console.log({ post });
 
     const upsertPost = (e) => {
         e.preventDefault();
