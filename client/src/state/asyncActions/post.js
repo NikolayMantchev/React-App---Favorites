@@ -10,7 +10,7 @@ import { StateContext } from "../context";
 import { useCallback, useContext } from "react";
 import useService from "../../api/useService";
 
-const useAsyncActions = () => {
+const  useAsyncActions = () => {
     const { dispatchPost: dispatch } = useContext(StateContext);
     const {
         getPosts,

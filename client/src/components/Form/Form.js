@@ -5,7 +5,7 @@ import {
     Button,
     Typography,
     Paper,
-    lighten,
+    // lighten,
 } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import useToken from "../../common/useToken";
@@ -36,7 +36,7 @@ const Form = ({ history }) => {
     // }, id);
 
     useEffect(() => {
-        // console.log(token);
+        
         if (!token) history.push("/signin");
     }, [history, token]);
 

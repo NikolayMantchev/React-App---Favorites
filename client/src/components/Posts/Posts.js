@@ -1,8 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   Grid,
   CircularProgress,
-  Typography,
   LinearProgress, Container, Grow,
 } from '@material-ui/core'
 import badGateway from '../../images/badGataway.jpeg'

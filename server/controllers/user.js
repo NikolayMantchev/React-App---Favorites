@@ -35,18 +35,17 @@ export const signin = async (req, res) => {
 
 export const signup = async (req, res) => {
     const { firstName, lastName, email, password, confirmPassword } = req.body;
-
     try {
         const oldUser = await UserModal.findOne({ email });
-
+        
         if (oldUser)
-            return res.status(400).json({ message: "User already exists" });
+        return res.status(400).json({ message: "User already exists" });
         if (password !== confirmPassword)
-            return res
-                .status(400)
-                .json({ message: "Repeat Password must match Password" });
+        return res
+        .status(400)
+        .json({ message: "Repeat Password must match Password" });
         const hashedPassword = await bcrypt.hash(password, 12);
-
+        
         const result = await UserModal.create({
             email,
             password: hashedPassword,
@@ -61,7 +60,7 @@ export const signup = async (req, res) => {
 
         res.status(201).json({ result, token });
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong" });
+        res.status(500).json({ message: "Something went wrong >> server side" });
 
         console.log(error);
     }

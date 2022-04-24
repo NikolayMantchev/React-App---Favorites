@@ -25,14 +25,14 @@ const Navbar = () => {
 
     useEffect(() => {
         const token = localStorage.getItem("token");
-        const name = localStorage.getItem("name");
+        // const name = localStorage.getItem("name");
 
         if (token) {
             const decodedToken = decode(token);
             if (decodedToken.exp * 1000 < new Date().getTime()) logout();
             setUser(decodedToken);
         }
-    }, [location]);
+    }, [location]); 
 
     const name = localStorage.getItem("name");
     return (

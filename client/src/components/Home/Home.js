@@ -12,7 +12,7 @@ const Home = ({ filter }) => {
 
     useEffect(() => {
         loadPosts();
-    }, []);
+    },[]);
 
     return <Posts posts={posts} error={error} isPending={isPending} />;
 };
