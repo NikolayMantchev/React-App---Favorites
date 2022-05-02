@@ -12,9 +12,10 @@ Favorites is aplikation for bookmarking links.
 
 In the project, you can:
 
--   register, but you have some validation properties.
+-   register, with some validation properties.
 -   login, if you already registered.
 -   view all public favorite links.
+-   clicking on link redirect to the site.
 
 # Available Actions Logged In Users
 
