@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useMemo } from 'react'
 import { Container } from '@material-ui/core'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import postReducer from './state/reducers/posts'
@@ -10,7 +10,7 @@ import SignInForm from './components/Auth/SignInForm'
 import SignUpForm from './components/Auth/SignUpForm'
 import MyFavorites from './components/MyFavorites/MyFavorites'
 import { StateContext } from './state/context'
-import { useMemo } from 'react'
+
 
 const initialPostState = {
   fetching: false,
