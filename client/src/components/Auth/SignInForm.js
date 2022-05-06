@@ -36,7 +36,7 @@ const SignIn = () => {
 
     const signInClick = (e) => {
         const { email, password } = form;
-
+        e.preventDefault();
         fetch("http://localhost:5001/user/signin", {
             method: "POST",
             body: JSON.stringify({ email, password }),
@@ -62,7 +62,7 @@ const SignIn = () => {
             })
             .catch((err) => setError(err.message));
 
-        e.preventDefault();
+        
     };
     return (
         <Container component="main" maxWidth="xs">

@@ -29,7 +29,7 @@ const App = () => {
   return (
     <StateContext.Provider value={value}>
       <BrowserRouter>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Navbar/>
           <Switch>
             <Route path="/" exact component={Home}/>

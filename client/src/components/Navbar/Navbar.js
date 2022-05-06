@@ -8,6 +8,7 @@ import decode from "jwt-decode";
 import favImage from "../../images/favImage.png";
 
 import useStyles from "./styles";
+import SearchBar from "../Search/Search";
 
 const Navbar = () => {
     const [user, setUser] = useState({});
@@ -32,11 +33,12 @@ const Navbar = () => {
             if (decodedToken.exp * 1000 < new Date().getTime()) logout();
             setUser(decodedToken);
         }
-    }, [location]); 
+    }, [location]);
 
     const name = localStorage.getItem("name");
     return (
-        <AppBar className={classes.appBar} position="static" color="inherit">
+        <AppBar className={classes.appBar} position="static" color='inherit'>
+
             <div className={classes.brandContainer}>
                 <Link to="/">
                     <img
@@ -47,25 +49,27 @@ const Navbar = () => {
                     />
                 </Link>
             </div>
-
             <div>
-                <Fab
-                    variant="extended"
-                    size="small"
-                    color="primary"
+                <SearchBar></SearchBar>
+            </div>
+            <div>
+                <Button
+                    variant="contained"
+                    size="medium"
+                    color='primary'
                     aria-label="add"
                     className={classes.margin}
                     component={Link}
                     to="/myfavorites"
                 >
                     My Fav's
-                </Fab>
+                </Button>
             </div>
             <div>
                 <Fab
                     variant="extended"
-                    size="small"
-                    color="primary"
+                    size="medium"
+                    color='primary'
                     aria-label="add"
                     className={classes.margin}
                     component={Link}
@@ -75,51 +79,52 @@ const Navbar = () => {
                 </Fab>
             </div>
 
-            <Toolbar className={classes.toolbar}>
+            <div >
                 {user?.email ? (
-                    <div className={classes.profile}>
+                    <div >
                         <Typography
                             className={classes.userName}
                             variant="h6"
-                            color="primary"
+                            color={classes.primary}
                         >
-                            Welcome, {name}
+                            {name}
                         </Typography>
                         <Button
                             variant="contained"
-                            className={classes.logout}
-                            color="secondary"
+                            className={classes.brandContainer}
+                            color='secondary'
                             onClick={logout}
                         >
                             Logout
                         </Button>
                     </div>
                 ) : (
-                    <>
-                        <div>
-                            <Button
-                                component={Link}
-                                to="/signin"
-                                variant="contained"
-                                color="primary"
-                                className={classes.signin}
-                            >
-                                Sign In
-                            </Button>
 
-                            <Button
-                                component={Link}
-                                to="/signup"
-                                variant="contained"
-                                color="primary"
-                                className={classes.signin}
-                            >
-                                Sign Up
-                            </Button>
-                        </div>
-                    </>
+                    <div>
+                        <Button
+                            component={Link}
+                            to="/signin"
+                            variant="contained"
+                            color="primary"
+                            className={classes.signin}
+                        >
+                            Sign In
+                        </Button>
+
+                        <Button
+                            component={Link}
+                            to="/signup"
+                            variant="contained"
+                            color="primary"
+                            className={classes.signin}
+                        >
+                            Sign Up
+                        </Button>
+                    </div>
+
                 )}
-            </Toolbar>
+            </div>
+
         </AppBar>
     );
 };

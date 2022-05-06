@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
+     
     appBar: {
         borderRadius: 15,
         margin: "30px 0",
@@ -20,22 +21,28 @@ export default makeStyles((theme) => ({
     toolbar: {
         display: "flex",
         justifyContent: "flex-end",
-        width: "400px",
+        // width: "400px",
     },
     profile: {
         display: "flex",
         justifyContent: "space-between",
-        width: "400px",
+        // width: "200px",
     },
     userName: {
         display: "flex",
         alignItems: "center",
+        color:"primary"
+      
     },
     brandContainer: {
         display: "flex",
         alignItems: "center",
+        
     },
     signin: {
         marginLeft: "15px",
     },
+    margin: {
+        marginLeft: "15px",
+    }
 }));

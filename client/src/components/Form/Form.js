@@ -28,7 +28,6 @@ const initState = {
 const Form = ({ history }) => {
     const [post, setPost] = useState(initState);
     const { id } = useParams();
-
     const { addPost, updatePost } = useAsyncActions();
 
     // useEffect(() => {

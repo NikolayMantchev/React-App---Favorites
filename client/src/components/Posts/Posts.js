@@ -11,7 +11,8 @@ import useStyles from './styles'
 
 const Posts = ({posts = [], error, isPending}) => {
   const classes = useStyles()
-
+// const searched = 'z' // - > z have to be the search input
+//   posts.filter((p) => { p.title.includes(searched) })
   posts.sort((a, b) => {
     const dateA = Date.parse(a.createdAt)
     const dateB = Date.parse(b.createdAt)
@@ -21,7 +22,7 @@ const Posts = ({posts = [], error, isPending}) => {
 
   return (
     <Grow in>
-      <Container>
+      <Container maxWidth="xl">
         <Grid
           container
           justify="space-between"
