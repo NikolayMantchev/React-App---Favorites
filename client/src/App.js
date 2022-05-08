@@ -15,7 +15,8 @@ import { StateContext } from './state/context'
 const initialPostState = {
   fetching: false,
   error: '',
-  posts: []
+  posts: [],
+  search: ''
 }
 
 const App = () => {

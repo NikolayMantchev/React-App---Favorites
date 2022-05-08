@@ -27,6 +27,10 @@ export default (state, action) => {
         error: '',
         posts: [...state.posts.filter(p => p._id !== payload._id), payload]
       }),
+
+    search: () => edit({
+      search: payload
+    }),
     failure: () => edit({
       error: payload,
       fetching: false

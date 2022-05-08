@@ -29,7 +29,7 @@ const MyFavorites = () => {
 
     const myposts = posts.filter((p) => p.creator === decodedToken.id);
 
-    return <Posts posts={myposts} error={error} isPending={isPending} />;
+    return <Posts creator={decodedToken.id} />;
 };
 
 export default MyFavorites;
