@@ -95,7 +95,7 @@ const Post = ({ post }) => {
                                 color="secondary"
                                 aria-label="edit"
                                 className={classes.margin}
-                                // onClick={() => setCurrentId(post._id)}
+                            // onClick={() => setCurrentId(post._id)}
                             >
                                 {/* <Link to={`/post/${post._id}`}> */}
                                 <EditIcon />

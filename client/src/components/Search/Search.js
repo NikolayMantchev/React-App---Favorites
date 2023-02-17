@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { StateContext } from "../../state/context";
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { Paper } from '@material-ui/core';
 import useStyles from "./styles";
-import useAsyncActions from "../../state/asyncActions/post";
+
 import { search } from '../../state/actions/simple';
 const SearchAppBar = () => {
 

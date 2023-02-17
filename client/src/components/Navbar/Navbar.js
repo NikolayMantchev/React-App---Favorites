@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { AppBar, Typography, Toolbar, Button } from "@material-ui/core";
+import React, { useState, useEffect, useCallback } from "react";
+import { AppBar, Typography, Button } from "@material-ui/core";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
@@ -17,12 +17,6 @@ const Navbar = () => {
     const history = useHistory();
     const classes = useStyles();
 
-    const logout = () => {
-        localStorage.clear();
-        history.push("/");
-
-        setUser(null);
-    };
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -34,6 +28,13 @@ const Navbar = () => {
             setUser(decodedToken);
         }
     }, [location]);
+
+    const logout = () => {
+        localStorage.clear();
+        history.push("/");
+
+        setUser(null);
+    };
 
     const name = localStorage.getItem("name");
     return (

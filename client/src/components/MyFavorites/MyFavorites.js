@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import useToken from "../../common/useToken";
 // import useStyles from "./styles";
 import { useHistory } from "react-router";
 import useAsyncActions from "../../state/asyncActions/post";
-import { StateContext } from "../../state/context";
+// import { StateContext } from "../../state/context";
 import Posts from "../Posts/Posts";
 import SignInForm from "../Auth/SignInForm";
 
@@ -12,13 +12,13 @@ const MyFavorites = () => {
 
     const { decodedToken } = useToken();
     const { loadPosts } = useAsyncActions();
-
+    const loadPostsCallback = useCallback(loadPosts)
     useEffect(() => {
-        loadPosts();
-    }, []);
+        loadPostsCallback();
+    }, [loadPostsCallback]);
 
-    const { post } = useContext(StateContext);
-    const { fetching: isPending, error, posts } = post;
+    // const { post } = useContext(StateContext);
+    // const { fetching: isPending, error, posts } = post;
 
     const history = useHistory();
 
@@ -27,7 +27,7 @@ const MyFavorites = () => {
         return <SignInForm />;
     }
 
-    const myposts = posts.filter((p) => p.creator === decodedToken.id);
+    // const myposts = posts.filter((p) => p.creator === decodedToken.id);
 
     return <Posts creator={decodedToken.id} />;
 };

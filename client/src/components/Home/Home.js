@@ -1,16 +1,16 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import useAsyncActions from "../../state/asyncActions/post";
 import Posts from "../Posts/Posts";
 
 const Home = () => {
     const { loadPosts } = useAsyncActions();
-
+    const loadPostsCallback = useCallback(loadPosts)
 
 
     useEffect(() => {
-        loadPosts();
-    }, []);
+        loadPostsCallback();
+    }, [loadPostsCallback]);
 
     return <Posts />;
 };

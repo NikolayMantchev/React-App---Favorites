@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-    TextField,
-    Button,
-    Typography,
-    Paper,
-    // lighten,
+	TextField,
+	Button,
+	Typography,
+	Paper,
+	// lighten,
 } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import useToken from "../../common/useToken";
@@ -15,159 +15,156 @@ import useStyles from "./styles";
 import { StateContext } from "../../state/context";
 import useAsyncActions from "../../state/asyncActions/post";
 
-const { token, decodedToken } = useToken();
-
-const initState = {
-    creator: decodedToken?.id || "",
-    title: "",
-    description: "",
-    selectedFile: "",
-    imageUrl: "",
-    linkUrl: "",
-};
 const Form = ({ history }) => {
-    const [post, setPost] = useState(initState);
-    const { id } = useParams();
-    const { addPost, updatePost } = useAsyncActions();
+	const { token, decodedToken } = useToken();
 
-    // useEffect(() => {
-    //     if (!id) setPost(initState);
-    // }, id);
+	const initState = {
+		creator: decodedToken?.id || "",
+		title: "",
+		description: "",
+		selectedFile: "",
+		imageUrl: "",
+		linkUrl: "",
+	};
+	const [post, setPost] = useState(initState);
+	const { id } = useParams();
 
-    useEffect(() => {
-        
-        if (!token) history.push("/signin");
-    }, [history, token]);
+	const { addPost, updatePost } = useAsyncActions();
 
-    const { post: postState } = useContext(StateContext);
-    const { posts, error } = postState;
+	useEffect(() => {
+		if (!id) setPost(initState);
+	}, [id]);
 
-    useEffect(() => {
-        if (posts.length > 0) {
-            const curentPost = posts.find((p) => p._id === id);
+	useEffect(() => {
+		if (!token) history.push("/signin");
+	}, [history]);
 
-            if (curentPost) {
-                setPost(curentPost);
-            }
-        }
-    }, [posts]);
+	const { post: postState } = useContext(StateContext);
 
-    const handleChange = (e) => {
-        setPost({ ...post, [e.target.name]: e.target.value });
-    };
-    // console.log({ post });
+	const { posts, error } = postState;
 
-    const upsertPost = (e) => {
-        e.preventDefault();
+	useEffect(() => {
+		if (posts.length > 0) {
+			const curentPost = posts.find((p) => p._id === id);
 
-        const fn = post._id ? updatePost : addPost;
+			if (curentPost) {
+				setPost(curentPost);
+			}
+		}
+	}, [posts, id]);
 
-        fn(post).then((r) => {
-            if (r.status !== "error") history.push("/");
-        });
-    };
+	const handleChange = (e) => {
+		setPost({ ...post, [e.target.name]: e.target.value });
+	};
+	// console.log({ post });
 
-    const classes = useStyles();
+	const upsertPost = (e) => {
+		e.preventDefault();
 
-    const clear = () => {
-        setPost(initState);
-    };
+		const fn = post._id ? updatePost : addPost;
 
-    return (
-        <Container component="main" maxWidth="md">
-            <Paper className={classes.paper}>
-                <form
-                    autoComplete="off"
-                    noValidate
-                    className={`${classes.root} ${classes.form}`}
-                >
-                    <Typography variant="h6">
-                        {id ? "Edit" : "Create Favorite"}
-                    </Typography>
+		fn(post).then((r) => {
+			if (r.status !== "error") history.push("/");
+		});
+	};
 
-                    <TextField
-                        name="title"
-                        variant="outlined"
-                        label="Title"
-                        fullWidth
-                        value={post.title}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        name="description"
-                        variant="outlined"
-                        label="Description"
-                        fullWidth
-                        multiline
-                        rows={3}
-                        value={post.description}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        name="imageUrl"
-                        variant="outlined"
-                        label="Image Url"
-                        fullWidth
-                        multiline
-                        rows={1}
-                        value={post.imageUrl}
-                        onChange={handleChange}
-                    />
-                    <TextField
-                        name="linkUrl"
-                        variant="outlined"
-                        label="Link Url"
-                        fullWidth
-                        value={post.linkUrl}
-                        onChange={handleChange}
-                    />
-                    <div className={classes.fileInput}>
-                        <FileBase
-                            type="file"
-                            multiple={false}
-                            onDone={({ base64 }) =>
-                                setPost({
-                                    ...post,
-                                    selectedFile: base64,
-                                })
-                            }
-                        />
-                    </div>
+	const classes = useStyles();
 
-                    <Button
-                        className={classes.buttonSubmit}
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        fullWidth
-                        onClick={upsertPost}
-                    >
-                        Submit
-                    </Button>
-                    <div>
-                        {error && (
-                            <Typography
-                                component="h3"
-                                variant="h6"
-                                color="secondary"
-                            >
-                                {error}
-                            </Typography>
-                        )}
-                    </div>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        size="small"
-                        onClick={clear}
-                        fullWidth
-                    >
-                        Clear
-                    </Button>
-                </form>
-            </Paper>
-        </Container>
-    );
+	const clear = () => {
+		setPost(initState);
+	};
+
+	return (
+		<Container component="main" maxWidth="md">
+			<Paper className={classes.paper}>
+				<form
+					autoComplete="off"
+					noValidate
+					className={`${classes.root} ${classes.form}`}>
+					<Typography variant="h6">
+						{id ? "Edit" : "Create Favorite"}
+					</Typography>
+
+					<TextField
+						name="title"
+						variant="outlined"
+						label="Title"
+						fullWidth
+						value={post.title}
+						onChange={handleChange}
+					/>
+					<TextField
+						name="description"
+						variant="outlined"
+						label="Description"
+						fullWidth
+						multiline
+						rows={3}
+						value={post.description}
+						onChange={handleChange}
+					/>
+					<TextField
+						name="imageUrl"
+						variant="outlined"
+						label="Image Url"
+						fullWidth
+						multiline
+						rows={1}
+						value={post.imageUrl}
+						onChange={handleChange}
+					/>
+					<TextField
+						name="linkUrl"
+						variant="outlined"
+						label="Link Url"
+						fullWidth
+						value={post.linkUrl}
+						onChange={handleChange}
+					/>
+					<div className={classes.fileInput}>
+						<FileBase
+							type="file"
+							multiple={false}
+							onDone={({ base64 }) =>
+								setPost({
+									...post,
+									selectedFile: base64,
+								})
+							}
+						/>
+					</div>
+
+					<Button
+						className={classes.buttonSubmit}
+						variant="contained"
+						color="primary"
+						size="large"
+						fullWidth
+						onClick={upsertPost}>
+						Submit
+					</Button>
+					<div>
+						{error && (
+							<Typography
+								component="h3"
+								variant="h6"
+								color="secondary">
+								{error}
+							</Typography>
+						)}
+					</div>
+					<Button
+						variant="contained"
+						color="secondary"
+						size="small"
+						onClick={clear}
+						fullWidth>
+						Clear
+					</Button>
+				</form>
+			</Paper>
+		</Container>
+	);
 };
 
 export default Form;
