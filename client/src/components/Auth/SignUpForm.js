@@ -42,7 +42,7 @@ const SignUp = () => {
 
         // if (password !== confirmPassword) return (error) => setError(error);
 
-        fetch("https://my-favorite-links.netlify.app/user/signup", {
+        fetch("https://localhost:5000/user/signup", {
             method: "POST",
             body: JSON.stringify({
                 firstName,
