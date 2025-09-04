@@ -37,7 +37,7 @@ const SignIn = () => {
     const signInClick = (e) => {
         const { email, password } = form;
         e.preventDefault();
-        fetch("http://localhost:5001/user/signin", {
+        fetch("https://my-favorite-links.netlify.app/user/signin", {
             method: "POST",
             body: JSON.stringify({ email, password }),
             headers: {

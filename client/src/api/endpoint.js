@@ -1,6 +1,6 @@
-const apiUrl = "http://localhost:5001";
+//const apiUrl = "http://localhost:5001";
 
-// const apiUrl = "https://my-favorite-links.netlify.app/";
+ const apiUrl = "https://my-favorite-links.netlify.app/";
 
 const api = async (path, params = {}) => {
     const url = `${apiUrl}${path}`;
