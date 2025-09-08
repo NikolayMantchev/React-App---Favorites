@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import decode from "jwt-decode";
+import { apiSignUpUrl } from "../../api/endpoint";
 import {
     Avatar,
     Button,
@@ -42,7 +43,7 @@ const SignUp = () => {
 
         // if (password !== confirmPassword) return (error) => setError(error);
 
-        fetch("https://localhost:5001/user/signup", {
+        fetch(apiSignUpUrl, {
             method: "POST",
             body: JSON.stringify({
                 firstName,

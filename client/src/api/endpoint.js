@@ -1,6 +1,9 @@
-//const apiUrl = "http://localhost:5001";
+const apiUrl = "http://localhost:5001";
 
- const apiUrl = "https://my-favorite-links.netlify.app/";
+//  const apiUrl = "https://my-favorite-links.netlify.app/";
+const apiSignInUrl = "https://localhost:5001/user/signin";
+const apiSignUpUrl = "https://localhost:5001/user/signup";
+
 
 const api = async (path, params = {}) => {
     const url = `${apiUrl}${path}`;
@@ -30,4 +33,4 @@ const post = apiMethod("POST");
 const put = apiMethod("PUT");
 const del = apiMethod("DELETE");
 
-export { get, post, put, del };
+export { get, post, put, del, apiSignInUrl, apiSignUpUrl };

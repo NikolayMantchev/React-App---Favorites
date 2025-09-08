@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import decode from "jwt-decode";
-
+import { apiSignInUrl } from "../../api/endpoint";
 import {
     Avatar,
     Button,
@@ -37,7 +37,7 @@ const SignIn = () => {
     const signInClick = (e) => {
         const { email, password } = form;
         e.preventDefault();
-        fetch("https://localhost:5001/user/signin", {
+        fetch(apiSignInUrl, {
             method: "POST",
             body: JSON.stringify({ email, password }),
             headers: {
