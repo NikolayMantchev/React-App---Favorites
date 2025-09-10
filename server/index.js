@@ -3,7 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-import * as dotenv from 'dotenv'
+import dotenv from 'dotenv'
 import postRoutes from "./routes/posts.js";
 import userRouter from "./routes/user.js";
 
@@ -16,14 +16,25 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 app.use("/posts", postRoutes);
 app.use("/user", userRouter);
-
+const uri = process.env.DATABASE_URL;
 const PORT = process.env.PORT || 5001;
-const databaseUrl = process.env.DATABASE_URL;
-console.log(databaseUrl);
-console.log(PORT);
 
+
+
+// async function connectToDatabase() {
+//   try {
+//     await mongoose.connect(uri, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//     });
+//     console.log(`Server Running on Port: http://localhost:${PORT}`);
+//   } catch (error) {
+//     console.error("Error connecting to MongoDB:", error);
+//   }
+// }
+// connectToDatabase()
 mongoose
-    .connect(databaseUrl, {
+    .connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })

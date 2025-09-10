@@ -1,13 +1,13 @@
-const apiUrl = "http://localhost:5001";
+// const apiUrl = "http://localhost:5001";
 
-//  const apiUrl = "https://my-favorite-links.netlify.app/";
-const apiSignInUrl = "https://localhost:5001/user/signin";
-const apiSignUpUrl = "https://localhost:5001/user/signup";
+ const apiUrl = "https://react-app-favorites.vercel.app/";
+const apiSignInUrl = "https://react-app-favorites.vercel.app/user/signin";
+const apiSignUpUrl = "https://react-app-favorites.vercel.app/user/signup";
 
 
 const api = async (path, params = {}) => {
     const url = `${apiUrl}${path}`;
-    // console.log({params})
+    console.log({params})
     const body = await fetch(url, params);
     return await body.json();
 };
