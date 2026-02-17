@@ -1,6 +1,6 @@
-//const apiUrl = "http://localhost:5001";
+const apiUrl = "http://localhost:5001";
 
-const apiUrl = "https://react-app-favorites.vercel.app/";
+//const apiUrl = "https://react-app-favorites.vercel.app/";
 const apiSignInUrl = "http://localhost:5001/user/signin";
 const apiSignUpUrl = "http://localhost:5001/user/signup";
 
