@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "buildCommand": "cd server && npm install",
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "JWT_SECRET": "@jwt_secret",
+    "PORT": "3001"
+  },
+  "functions": {
+    "api/index.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
