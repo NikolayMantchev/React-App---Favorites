@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, Typography, Button } from "@mui/material";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Fab from "@mui/material/Fab";
@@ -24,15 +24,16 @@ const Navbar = () => {
 
         if (token) {
             const decodedToken = decode(token);
-            if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+            if (decodedToken.exp * 1000 < new Date().getTime()) {
+                handleLogout();
+            }
             setUser(decodedToken);
         }
     }, [location]);
 
-    const logout = () => {
+    const handleLogout = () => {
         localStorage.clear();
         navigate("/");
-
         setUser(null);
     };
 

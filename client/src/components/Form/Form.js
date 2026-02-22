@@ -33,7 +33,7 @@ const Form = () => {
 
 	useEffect(() => {
 		if (!id) setPost(initState);
-	}, [id]);
+	}, [id, initState]);
 
 	useEffect(() => {
 		if (!token) navigate("/signin");

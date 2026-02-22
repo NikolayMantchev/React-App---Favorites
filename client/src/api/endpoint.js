@@ -1,6 +1,6 @@
-//const apiUrl = "http://localhost:5001";
+const apiUrl = "http://localhost:5001";
 
-const apiUrl = "react-git-main-nikolaymantchevs-projects.vercel.app";
+//const apiUrl = "react-git-main-nikolaymantchevs-projects.vercel.app";
 const apiSignInUrl = "http://localhost:5001/user/signin";
 const apiSignUpUrl = "http://localhost:5001/user/signup";
 

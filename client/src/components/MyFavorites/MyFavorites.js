@@ -12,7 +12,7 @@ const MyFavorites = () => {
 
     const { decodedToken } = useToken();
     const { loadPosts } = useAsyncActions();
-    const loadPostsCallback = useCallback(loadPosts)
+    const loadPostsCallback = useCallback(loadPosts, [loadPosts])
     const navigate = useNavigate();
     useEffect(() => {
         loadPostsCallback();

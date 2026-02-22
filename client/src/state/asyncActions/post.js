@@ -26,7 +26,7 @@ const useAsyncActions = () => {
         return getPosts()
             .then((posts) => dispatch(success(posts)))
             .catch((error) => dispatch(failure(error.message)));
-    }, [dispatch]);
+    }, [dispatch, getPosts]);
 
     const addPost = (post) => {
         dispatch(request());

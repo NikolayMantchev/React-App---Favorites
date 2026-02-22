@@ -5,7 +5,7 @@ import Posts from "../Posts/Posts";
 
 const Home = () => {
     const { loadPosts } = useAsyncActions();
-    const loadPostsCallback = useCallback(loadPosts)
+    const loadPostsCallback = useCallback(loadPosts, [loadPosts])
 
 
     useEffect(() => {

@@ -1,6 +1,6 @@
 import {editState} from '../../common/helpers'
 
-export default (state, action) => {
+const postsReducer = (state, action) => {
   const { type, payload } = action
 
   const edit = editState(state)
@@ -42,3 +42,5 @@ export default (state, action) => {
 
   return actionFn()
 }
+
+export default postsReducer
