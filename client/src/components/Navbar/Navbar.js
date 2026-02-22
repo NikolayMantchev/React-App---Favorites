@@ -95,7 +95,7 @@ const Navbar = () => {
                             variant="contained"
                             className={classes.brandContainer}
                             color='secondary'
-                            onClick={logout}
+                            onClick={handleLogout}
                         >
                             Logout
                         </Button>
