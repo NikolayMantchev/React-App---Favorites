@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
 	TextField,
@@ -18,14 +18,14 @@ const Form = () => {
 	const { token, decodedToken } = useToken();
 	const navigate = useNavigate();
 
-	const initState = {
+	const initState = useMemo(() => ({
 		creator: decodedToken?.id || "",
 		title: "",
 		description: "",
 		selectedFile: "",
 		imageUrl: "",
 		linkUrl: "",
-	};
+	}), [decodedToken?.id]);
 	const [post, setPost] = useState(initState);
 	const { id } = useParams();
 

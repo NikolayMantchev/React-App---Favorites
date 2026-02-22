@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { AppBar, Typography, Button } from "@mui/material";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Fab from "@mui/material/Fab";
@@ -17,6 +17,11 @@ const Navbar = () => {
     const navigate = useNavigate();
     const classes = useStyles();
 
+    const handleLogout = useCallback(() => {
+        localStorage.clear();
+        navigate("/");
+        setUser(null);
+    }, [navigate]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -29,19 +34,15 @@ const Navbar = () => {
             }
             setUser(decodedToken);
         }
-    }, [location]);
-
-    const handleLogout = () => {
-        localStorage.clear();
-        navigate("/");
-        setUser(null);
-    };
+    }, [location, handleLogout]);
 
     const name = localStorage.getItem("name");
     return (
         <AppBar className={classes.appBar} position="static" color='inherit'>
+           <div>
 
-            <div className={classes.brandContainer}>
+          
+           <div className={classes.brandContainer}>
                 <Link to="/">
                     <img
                         className={classes.image}
@@ -126,7 +127,7 @@ const Navbar = () => {
 
                 )}
             </div>
-
+ </div>
         </AppBar>
     );
 };
