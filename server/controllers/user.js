@@ -1,9 +1,11 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 import UserModal from "../models/user.js";
 
-const secret = "test";
+dotenv.config();
+const secret = process.env.JWT_SECRET || "test";
 
 export const signin = async (req, res) => {
     const { email, password } = req.body;

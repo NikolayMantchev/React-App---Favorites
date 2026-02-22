@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const postSchema = mongoose.Schema({
+const postSchema = new mongoose.Schema({
     title: String,
     description: String,
     name: String,
@@ -12,7 +12,7 @@ const postSchema = mongoose.Schema({
     likes: { type: [String], default: [] },
     createdAt: {
         type: Date,
-        default: new Date(),
+        default: () => new Date(),
     },
 });
 

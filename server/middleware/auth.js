@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-const secret = "test";
+dotenv.config();
+const secret = process.env.JWT_SECRET || "test";
 
 const auth = async (req, res, next) => {
 	// console.log('headers', req.headers)
@@ -20,7 +22,7 @@ const auth = async (req, res, next) => {
 
 			req.userId = decodedData?.id;
 		} else {
-			decodedData = jwt.decode(token);
+			decodedData = jwt.decode(token, { complete: false });
 
 			req.userId = decodedData?.sub;
 		}
