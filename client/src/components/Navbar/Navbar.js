@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { AppBar, Typography, Button } from "@material-ui/core";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
+import { AppBar, Typography, Button } from "@mui/material";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
 import decode from "jwt-decode";
 
 import favImage from "../../images/favImage.png";
@@ -14,7 +14,7 @@ const Navbar = () => {
     const [user, setUser] = useState({});
 
     const location = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = useStyles();
 
 
@@ -31,7 +31,7 @@ const Navbar = () => {
 
     const logout = () => {
         localStorage.clear();
-        history.push("/");
+        navigate("/");
 
         setUser(null);
     };

@@ -1,6 +1,6 @@
 import React, { useReducer, useMemo } from 'react'
-import { Container } from '@material-ui/core'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Container } from '@mui/material'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import postReducer from './state/reducers/posts'
 
 import Home from './components/Home/Home'
@@ -32,14 +32,14 @@ const App = () => {
       <BrowserRouter>
         <Container maxWidth="xl">
           <Navbar/>
-          <Switch>
-            <Route path="/" exact component={Home}/>
-            <Route path="/signin" exact component={SignInForm}/>
-            <Route path="/signup" exact component={SignUpForm}/>
-            <Route path="/post" exact component={Form}/>
-            <Route path="/post/:id" exact component={Form}/>
-            <Route path="/myfavorites" exact component={MyFavorites}/>
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/signin" element={<SignInForm/>}/>
+            <Route path="/signup" element={<SignUpForm/>}/>
+            <Route path="/post" element={<Form/>}/>
+            <Route path="/post/:id" element={<Form/>}/>
+            <Route path="/myfavorites" element={<MyFavorites/>}/>
+          </Routes>
         </Container>
       </BrowserRouter>
     </StateContext.Provider>

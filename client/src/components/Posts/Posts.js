@@ -5,7 +5,7 @@ import {
 	LinearProgress,
 	Container,
 	Grow,
-} from "@material-ui/core";
+} from "@mui/material";
 import badGateway from "../../images/badGataway.jpeg";
 import { StateContext } from "../../state/context";
 import Post from "./Post/Post";

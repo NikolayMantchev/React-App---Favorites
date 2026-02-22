@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
 	TextField,
 	Button,
 	Typography,
 	Paper,
-	// lighten,
-} from "@material-ui/core";
-import { Container } from "@material-ui/core";
+} from "@mui/material";
+import { Container } from "@mui/material";
 import useToken from "../../common/useToken";
 import FileBase from "react-file-base64";
 
@@ -15,8 +14,9 @@ import useStyles from "./styles";
 import { StateContext } from "../../state/context";
 import useAsyncActions from "../../state/asyncActions/post";
 
-const Form = ({ history }) => {
+const Form = () => {
 	const { token, decodedToken } = useToken();
+	const navigate = useNavigate();
 
 	const initState = {
 		creator: decodedToken?.id || "",
@@ -36,8 +36,8 @@ const Form = ({ history }) => {
 	}, [id]);
 
 	useEffect(() => {
-		if (!token) history.push("/signin");
-	}, [history]);
+		if (!token) navigate("/signin");
+	}, [navigate, token]);
 
 	const { post: postState } = useContext(StateContext);
 
@@ -64,7 +64,7 @@ const Form = ({ history }) => {
 		const fn = post._id ? updatePost : addPost;
 
 		fn(post).then((r) => {
-			if (r.status !== "error") history.push("/");
+			if (r.status !== "error") navigate("/");
 		});
 	};
 

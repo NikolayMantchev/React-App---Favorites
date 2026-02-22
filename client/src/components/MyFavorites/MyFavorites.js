@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import useToken from "../../common/useToken";
 // import useStyles from "./styles";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router-dom";
 import useAsyncActions from "../../state/asyncActions/post";
 // import { StateContext } from "../../state/context";
 import Posts from "../Posts/Posts";
@@ -13,17 +13,13 @@ const MyFavorites = () => {
     const { decodedToken } = useToken();
     const { loadPosts } = useAsyncActions();
     const loadPostsCallback = useCallback(loadPosts)
+    const navigate = useNavigate();
     useEffect(() => {
         loadPostsCallback();
     }, [loadPostsCallback]);
 
-    // const { post } = useContext(StateContext);
-    // const { fetching: isPending, error, posts } = post;
-
-    const history = useHistory();
-
     if (!decodedToken) {
-        history.push("/signin");
+        navigate("/signin");
         return <SignInForm />;
     }
 

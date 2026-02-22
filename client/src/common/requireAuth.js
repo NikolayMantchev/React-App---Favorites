@@ -1,16 +1,16 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 
 const RequireAuth = (component) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const decodedToken = localStorage.getItem("decodedToken");
     useEffect(() => {
-        if (!history) return;
+        if (!navigate) return;
         if (!decodedToken || decodedToken.exp * 1000 < new Date().getTime()) {
             localStorage.clear();
-            history.push("/signin");
+            navigate("/signin");
         }
-    }, [decodedToken, history]);
+    }, [decodedToken, navigate]);
     return decodedToken ? <component /> : null;
 };
 export default RequireAuth;

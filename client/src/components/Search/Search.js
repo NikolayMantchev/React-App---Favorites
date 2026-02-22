@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { StateContext } from "../../state/context";
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
-import { Paper } from '@material-ui/core';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import { Paper } from '@mui/material';
 import useStyles from "./styles";
 
 import { search } from '../../state/actions/simple';

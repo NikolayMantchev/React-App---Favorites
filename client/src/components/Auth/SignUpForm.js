@@ -8,10 +8,10 @@ import {
     Grid,
     Typography,
     Container,
-} from "@material-ui/core";
-import { Link, useHistory } from "react-router-dom";
+} from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 import useStyles from "./styles";
 import Input from "./Input";
@@ -27,7 +27,7 @@ const initialState = {
 const SignUp = () => {
     const [form, setForm] = useState(initialState);
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = useStyles();
 
     const [showPassword, setShowPassword] = useState(false);
@@ -69,7 +69,7 @@ const SignUp = () => {
                     "decodedToken",
                     JSON.stringify(decodedToken)
                 );
-                history.push("/");
+                navigate("/");
             })
             .catch((err) => setError(err));
         e.preventDefault();
@@ -144,7 +144,7 @@ const SignUp = () => {
                             </Typography>
                         )}
                     </div>
-                    <Grid container justify="flex-end">
+                    <Grid container justifyContent="flex-end">
                         <Grid item>
                             <Button component={Link} to="/signin">
                                 Already have an account? Sign in
