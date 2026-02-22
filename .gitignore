@@ -1,4 +1,7 @@
-node_modules
-build
+```bash
+node_modules/
 .env
+.env.local
 .DS_Store
+build/
+dist/

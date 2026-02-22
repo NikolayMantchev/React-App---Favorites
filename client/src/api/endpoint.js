@@ -1,8 +1,8 @@
 //const apiUrl = "http://localhost:5001";
 
-const apiUrl = "https://favorites-client.vercel.app";
-const apiSignInUrl = "https://favorites-client.vercel.app/user/signin";
-const apiSignUpUrl = "https://favorites-client.vercel.app/user/signup";
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5001";
+const apiSignInUrl = `${apiUrl}/user/signin`;
+const apiSignUpUrl = `${apiUrl}/user/signup`;
 
 
 const api = async (path, params = {}) => {
