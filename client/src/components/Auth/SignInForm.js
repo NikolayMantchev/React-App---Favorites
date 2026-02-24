@@ -20,7 +20,7 @@ const initialState = {
     email: "",
     password: "",
 };
-const apiSignInUrl = "https://react-node-exam.vercel.app/user/signin";
+const apiSignInUrl = "https://favorites-client.vercel.app/user/signin";
 const SignIn = () => {
     const [form, setForm] = useState(initialState);
     const navigate = useNavigate();
