@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo } from 'react'
+import { useReducer, useMemo } from 'react'
 import { Container, ThemeProvider, createTheme } from '@mui/material'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import postReducer from './state/reducers/posts'
@@ -19,7 +19,30 @@ const initialPostState = {
   search: ''
 }
 
-const theme = createTheme()
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#E11D48",
+      light: "#FB7185",
+      dark: "#9F1239",
+      contrastText: "#fff",
+    },
+    secondary: {
+      main: "#2563EB",
+      contrastText: "#fff",
+    },
+    background: {
+      default: "#FFF1F2",
+    },
+  },
+  typography: {
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    fontWeightMedium: 600,
+  },
+  shape: {
+    borderRadius: 10,
+  },
+})
 
 const App = () => {
   const [post, dispatchPost] = useReducer(postReducer, initialPostState)

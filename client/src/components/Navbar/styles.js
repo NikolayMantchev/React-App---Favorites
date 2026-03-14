@@ -1,48 +1,60 @@
 import { makeStyles } from "@mui/styles";
 
 export default makeStyles((theme) => ({
-     
     appBar: {
-        borderRadius: 15,
-        margin: "30px 0",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "10px 50px",
-    },
-    heading: {
-        color: "rgba(0,083,255, 1)",
-        textDecoration: "none",
-    },
-    image: {
-        marginLeft: "15px",
+        borderRadius: "12px !important",
+        margin: "20px 0 !important",
+        boxShadow: "0 2px 12px rgba(225, 29, 72, 0.10) !important",
     },
     toolbar: {
-        display: "flex",
-        justifyContent: "flex-end",
-        // width: "400px",
+        display: "flex !important",
+        alignItems: "center !important",
+        gap: `${theme.spacing(2)} !important`,
+        padding: `${theme.spacing(0, 3)} !important`,
+        minHeight: "72px !important",
+        [theme.breakpoints.down("sm")]: {
+            flexWrap: "wrap !important",
+            padding: `${theme.spacing(1.5, 2)} !important`,
+            gap: `${theme.spacing(1)} !important`,
+            minHeight: "unset !important",
+            paddingBottom: `${theme.spacing(1.5)} !important`,
+        },
     },
-    profile: {
+    brand: {
         display: "flex",
-        justifyContent: "space-between",
-        // width: "200px",
+        alignItems: "center",
+        flexShrink: 0,
+        textDecoration: "none",
+        transition: "opacity 200ms ease",
+        "&:hover": {
+            opacity: 0.8,
+        },
+    },
+    searchWrapper: {
+        flex: 1,
+        display: "flex",
+        justifyContent: "center",
+        [theme.breakpoints.down("sm")]: {
+            order: 3,
+            width: "100%",
+            flex: "none",
+        },
+    },
+    actions: {
+        display: "flex",
+        alignItems: "center",
+        gap: theme.spacing(1),
+        flexShrink: 0,
+        [theme.breakpoints.down("sm")]: {
+            gap: theme.spacing(0.5),
+            flexWrap: "wrap",
+            justifyContent: "flex-end",
+        },
     },
     userName: {
-        display: "flex",
-        alignItems: "center",
-        color:"primary"
-      
+        fontWeight: "600 !important",
+        whiteSpace: "nowrap",
+        color: "#E11D48",
+        fontSize: "0.95rem !important",
     },
-    brandContainer: {
-        display: "flex",
-        alignItems: "center",
-        
-    },
-    signin: {
-        marginLeft: "15px",
-    },
-    margin: {
-        marginLeft: "15px",
-    }
 }));
