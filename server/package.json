@@ -8,7 +8,7 @@
     "start": "nodemon index.js",
     "dev": "nodemon index.js"
   },
-  "author": "",
+  "author": "nikMan",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^3.0.0",
