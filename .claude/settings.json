@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git push:*)",
       "Bash(vercel --prod)",
-      "Bash(vercel login:*)"
+      "Bash(vercel login:*)",
+      "Bash(git add:*)"
     ]
   }
 }
