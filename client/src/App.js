@@ -22,9 +22,9 @@ const initialPostState = {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#E11D48",
+      main: "#409cdadb",
       light: "#FB7185",
-      dark: "#9F1239",
+      dark: "#4d7494",
       contrastText: "#fff",
     },
     secondary: {
