@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import {
     Card,
@@ -36,7 +36,7 @@ const Post = ({ post }) => {
     // console.log({post})
 
     return (
-        <Card className={classes.card}>
+        <Card component="article" className={classes.card}>
             <a href={post.linkUrl}>
                 <CardMedia
                     className={classes.media}
@@ -119,4 +119,4 @@ const Post = ({ post }) => {
     );
 };
 
-export default Post;
+export default memo(Post);

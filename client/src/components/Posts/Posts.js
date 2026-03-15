@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import {
 	Grid,
 	CircularProgress,
@@ -45,7 +45,7 @@ const Posts = ({ creator }) => {
 
 	return (
 		<Grow in>
-			<Container maxWidth="xl">
+			<Container component="section" maxWidth="xl" aria-label="Favorites feed">
 				<Grid
 					container
 					justifyContent="space-between"

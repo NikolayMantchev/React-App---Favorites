@@ -11,7 +11,16 @@ import userRouter from "./routes/user.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://favorites-gray.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 dotenv.config({ path: path.join(__dirname, ".env") });
 app.use(express.json({ limit: "10mb" }));

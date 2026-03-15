@@ -22,25 +22,34 @@ const initialPostState = {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#409cdadb",
+      main: "#E11D48",
       light: "#FB7185",
-      dark: "#4d7494",
+      dark: "#9F1239",
       contrastText: "#fff",
     },
     secondary: {
       main: "#2563EB",
+      light: "#60A5FA",
+      dark: "#1D4ED8",
       contrastText: "#fff",
     },
     background: {
       default: "#FFF1F2",
+      paper: "#FFFFFF",
+    },
+    text: {
+      primary: "#1E293B",
+      secondary: "#475569",
     },
   },
   typography: {
     fontFamily: "'Plus Jakarta Sans', sans-serif",
     fontWeightMedium: 600,
+    h5: { fontWeight: 700 },
+    button: { fontWeight: 600, textTransform: "none" },
   },
   shape: {
-    borderRadius: 10,
+    borderRadius: 12,
   },
 })
 
@@ -56,16 +65,18 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <StateContext.Provider value={value}>
         <BrowserRouter>
-          <Container maxWidth="xl">
+          <Container component="div" maxWidth="xl">
             <Navbar/>
-            <Routes>
-              <Route path="/" element={<Home/>}/>
-              <Route path="/signin" element={<SignInForm/>}/>
-              <Route path="/signup" element={<SignUpForm/>}/>
-              <Route path="/post" element={<Form/>}/>
-              <Route path="/post/:id" element={<Form/>}/>
-              <Route path="/myfavorites" element={<MyFavorites/>}/>
-            </Routes>
+            <main>
+              <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/signin" element={<SignInForm/>}/>
+                <Route path="/signup" element={<SignUpForm/>}/>
+                <Route path="/post" element={<Form/>}/>
+                <Route path="/post/:id" element={<Form/>}/>
+                <Route path="/myfavorites" element={<MyFavorites/>}/>
+              </Routes>
+            </main>
           </Container>
         </BrowserRouter>
       </StateContext.Provider>

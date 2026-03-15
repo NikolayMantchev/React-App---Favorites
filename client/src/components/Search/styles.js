@@ -1,53 +1,35 @@
-
 import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
-	},
-	menuButton: {
-		marginRight: theme.spacing(2),
-	},
-	title: {
-		flexGrow: 1,
-		display: 'none',
-		[theme.breakpoints.up('sm')]: {
-			display: 'block',
-		},
-	},
-	search: {
-		position: 'relative',
+	wrapper: {
+		display: "flex",
+		alignItems: "center",
+		gap: theme.spacing(1),
+		backgroundColor: "#F8FAFC",
 		borderRadius: theme.shape.borderRadius,
-		marginLeft: 0,
-		width: '100%',
-		[theme.breakpoints.up('sm')]: {
-			marginLeft: theme.spacing(1),
-			width: 'auto',
+		border: "1px solid #E2E8F0",
+		padding: theme.spacing(0.5, 1.5),
+		width: "100%",
+		transition: "border-color 200ms ease, box-shadow 200ms ease",
+		"&:focus-within": {
+			borderColor: theme.palette.primary.main,
+			boxShadow: `0 0 0 3px ${theme.palette.primary.light}33`,
 		},
 	},
-	searchIcon: {
-		padding: theme.spacing(0, 2),
-		height: '100%',
-		position: 'absolute',
-		pointerEvents: 'none',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
+	icon: {
+		color: "#94A3B8",
+		fontSize: "1.25rem !important",
+		flexShrink: 0,
 	},
 	inputRoot: {
-		color: 'inherit',
+		flex: 1,
+		fontSize: "0.9rem !important",
 	},
 	inputInput: {
-		padding: theme.spacing(1, 1, 1, 0),
-		// vertical padding + font size from searchIcon
-		paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-		transition: theme.transitions.create('width'),
-		width: '100%',
-		[theme.breakpoints.up('sm')]: {
-			width: '12ch',
-			'&:focus': {
-				width: '20ch',
-			},
+		padding: `${theme.spacing(0.5, 0)} !important`,
+		"&::placeholder": {
+			color: "#94A3B8",
+			opacity: 1,
 		},
 	},
 }));
