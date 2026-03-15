@@ -1,6 +1,6 @@
 //const apiUrl = "http://localhost:5001";
 
-const apiUrl = "https://favorites-gray.vercel.app/api" || "http://localhost:5001";
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5001";
 const apiSignInUrl = `${apiUrl}/user/signin`;
 const apiSignUpUrl = `${apiUrl}/user/signup`;
 
